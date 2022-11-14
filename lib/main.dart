@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yatraa/screens/home.dart';
 
 import 'UI/splash.dart';
 
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //initialRoute: LoginScreen.routeName,
       routes: {
-        "/": (context) => Splash(),
+        "/": (context) => const Splash(),
+        Home.routeName: (context) => const Home(),
       },
     );
   }

@@ -20,8 +20,8 @@ dependencies:
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.1
   flutter_dotenv: ^5.0.2
-
   cupertino_icons: ^1.0.2
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +36,7 @@ flutter:
     - assets/config/
     - assets/images/login_page_img.png
     - assets/images/Nepal_flag.png
+    - assets/images/logo_.png
 
   fonts:
     - family: OpenSans

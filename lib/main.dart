@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'UI/splash.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -30,7 +32,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       //initialRoute: LoginScreen.routeName,
-      routes: {},
+      routes: {
+        "/": (context) => Splash(),
+      },
     );
   }
 }

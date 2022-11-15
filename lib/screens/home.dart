@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/prepare_ride.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -33,11 +34,10 @@ class Home extends StatelessWidget {
                           style: TextStyle(color: Colors.indigo)),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
-                        //  Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => const PrepareRide())),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(PrepareRide.routeName);
+                        },
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(20)),
                         child: Row(

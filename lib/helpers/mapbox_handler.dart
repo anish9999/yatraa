@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../requests/mapbox_rev_geocoding.dart';
@@ -16,6 +14,6 @@ Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
     'place': feature['place_name'],
     'location': latLng
   };
-
+  print(revGeocode);
   return revGeocode;
 }

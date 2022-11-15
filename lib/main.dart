@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yatraa/screens/home.dart';
 import 'package:yatraa/screens/prepare_ride.dart';
+import 'package:yatraa/screens/review_ride.dart';
 
 import 'UI/splash.dart';
 
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => const Splash(),
         Home.routeName: (context) => const Home(),
         PrepareRide.routeName: (context) => const PrepareRide(),
+        // ReviewRide.routeName: (context) =>
+        //     const ReviewRide(modifiedResponse: {}),
       },
     );
   }

@@ -57,9 +57,8 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.indigo,
       child: Container(
-        color: Colors.grey.shade800,
+        color: const Color.fromARGB(255, 29, 141, 34),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

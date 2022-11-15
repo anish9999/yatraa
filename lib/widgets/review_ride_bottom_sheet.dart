@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yatraa/screens/turn_by_turn.dart';
 
 //import '../screens/turn_by_turn.dart';
 
@@ -41,17 +42,17 @@ Widget reviewRideBottomSheet(
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {}
-                    //  Navigator.push(context,
-                    //       MaterialPageRoute(builder: (_) => const TurnByTurn()))
-                    ,
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20)),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text('Start your premier ride now'),
-                        ])),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(TurnByTurn.routeName);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(20)),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text('Start your premier ride now'),
+                      ]),
+                ),
               ]),
         ),
       ),

@@ -22,13 +22,21 @@ dependencies:
   flutter_dotenv: ^5.0.2
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
-  animated_splash_screen: ^1.3.0
+  # animated_splash_screen: ^1.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.10.0
 
   flutter_lints: ^2.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "assets/images/launcher_logo.png"
+  adaptive_icon_background: "assets/images/adaptive_back.png"
+  adaptive_icon_foreground: "assets/images/adaptive_fore.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true

@@ -1,9 +1,32 @@
+//access token is required
+
 import 'package:flutter/material.dart';
+
+import 'package:mapbox_gl/mapbox_gl.dart';
+import '../helpers/shared_prefs.dart';
 import '../screens/prepare_ride.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
   static const routeName = "/home-screen";
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
+  late String currentAddress;
+  late CameraPosition _initialCameraPosition;
+
+  @override
+  void initState() {
+    //Set initial camera position and current address
+
+    _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
+    currentAddress = getCurrentAddressFromSharedPrefs();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +34,13 @@ class Home extends StatelessWidget {
       body: Stack(
         children: [
           // Add MapboxMap here and enable user location
+
+          MapboxMap(
+            initialCameraPosition: _initialCameraPosition,
+            accessToken:
+                "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
+            myLocationEnabled: true,
+          ),
           Positioned(
             bottom: 0,
             child: SizedBox(
@@ -30,8 +60,8 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       const Text('You are currently here:'),
-                      const Text('<Show the current address here>',
-                          style: TextStyle(color: Colors.indigo)),
+                      Text(currentAddress,
+                          style: const TextStyle(color: Colors.indigo)),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {

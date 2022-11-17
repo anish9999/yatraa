@@ -1,5 +1,6 @@
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import '../requests/mapbox_directions.dart';
 import '../requests/mapbox_rev_geocoding.dart';
 import '../requests/mapbox_search.dart';
 
@@ -47,4 +48,27 @@ Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
   };
   print(revGeocode);
   return revGeocode;
+}
+
+// ----------------------------- Mapbox Directions API -----------------------------
+Future<Map> getDirectionsAPIResponse(
+    LatLng sourceLatLng, LatLng destinationLatLng) async {
+  final response =
+      await getCyclingRouteUsingMapbox(sourceLatLng, destinationLatLng);
+  Map geometry = response['routes'][0]['geometry'];
+  num duration = response['routes'][0]['duration'];
+  num distance = response['routes'][0]['distance'];
+
+  Map modifiedResponse = {
+    "geometry": geometry,
+    "duration": duration,
+    "distance": distance,
+  };
+  return modifiedResponse;
+}
+
+LatLng getCenterCoordinatesForPolyline(Map geometry) {
+  List coordinates = geometry['coordinates'];
+  int pos = (coordinates.length / 2).round();
+  return LatLng(coordinates[pos][1], coordinates[pos][0]);
 }

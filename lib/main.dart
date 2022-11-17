@@ -50,8 +50,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => const Splash(),
         Home.routeName: (context) => const Home(),
         PrepareRide.routeName: (context) => const PrepareRide(),
-        // ReviewRide.routeName: (context) =>
-        //     const ReviewRide(modifiedResponse: {}),
+        // ReviewRide.routeName: (context) => ReviewRide(),
         TurnByTurn.routeName: (context) => const TurnByTurn(),
       },
     );

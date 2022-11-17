@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:yatraa/screens/turn_by_turn.dart';
-
-//import '../screens/turn_by_turn.dart';
+import '../helpers/shared_prefs.dart';
+import '../screens/turn_by_turn.dart';
 
 Widget reviewRideBottomSheet(
     BuildContext context, String distance, String dropOffTime) {
   // Get source and destination addresses from sharedPreferences
+  String sourceAddress = getSourceAndDestinationPlaceText('source');
+  String destAddress = getSourceAndDestinationPlaceText('destination');
 
   return Positioned(
     bottom: 0,
@@ -19,7 +20,7 @@ Widget reviewRideBottomSheet(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Source Address ➡ Destination Address',
+                Text('$sourceAddress ➡ $destAddress',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium

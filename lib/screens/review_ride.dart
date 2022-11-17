@@ -1,5 +1,7 @@
+//access token is required
+
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
@@ -112,7 +114,8 @@ class _ReviewRideState extends State<ReviewRide> {
             SizedBox(
               height: MediaQuery.of(context).size.height,
               child: MapboxMap(
-                accessToken: dotenv.env['MAPBOX_ACCESS_TOKEN'],
+                accessToken:
+                    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
                 initialCameraPosition: _initialCameraPosition,
                 onMapCreated: _onMapCreated,
                 onStyleLoadedCallback: _onStyleLoadedCallback,

@@ -18,7 +18,7 @@ Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latLng) async {
   try {
     _dio.options.contentType = Headers.jsonContentType;
     final responseData = await _dio.get(url);
-
+    print(responseData.data);
     return responseData.data;
   } catch (e) {
     final errorMessage = DioExceptions.fromDioError(e as DioError).toString();

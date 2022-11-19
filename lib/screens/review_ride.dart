@@ -36,7 +36,9 @@ class _ReviewRideState extends State<ReviewRide> {
 
     // initialise initialCameraPosition, address and trip end points
     _initialCameraPosition = CameraPosition(
-        target: getCenterCoordinatesForPolyline(geometry), zoom: 11);
+      target: getCenterCoordinatesForPolyline(geometry),
+      zoom: 11,
+    );
 
     for (String type in ['source', 'destination']) {
       _kTripEndPoints
@@ -57,12 +59,12 @@ class _ReviewRideState extends State<ReviewRide> {
 
   _onStyleLoadedCallback() async {
     for (int i = 0; i < _kTripEndPoints.length; i++) {
-      String iconImage = i == 0 ? 'circle' : 'square';
+      // String iconImage = i == 0 ? 'circle' : 'square';
       await controller.addSymbol(
         SymbolOptions(
           geometry: _kTripEndPoints[i].target,
           iconSize: 0.1,
-          iconImage: "assets/icon/$iconImage.png",
+          //  iconImage: "assets/icon/$iconImage.png",
         ),
       );
     }
@@ -120,7 +122,7 @@ class _ReviewRideState extends State<ReviewRide> {
                 onMapCreated: _onMapCreated,
                 onStyleLoadedCallback: _onStyleLoadedCallback,
                 myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
-                minMaxZoomPreference: const MinMaxZoomPreference(11, 11),
+                // minMaxZoomPreference: const MinMaxZoomPreference(11, 11),
               ),
             ),
             reviewRideBottomSheet(context, distance, dropOffTime),

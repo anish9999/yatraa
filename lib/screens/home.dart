@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
             accessToken:
                 "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
             myLocationEnabled: true,
+            compassEnabled: true,
           ),
           Positioned(
             bottom: 0,

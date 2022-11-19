@@ -46,6 +46,7 @@ flutter:
     - assets/images/login_page_img.png
     - assets/images/Nepal_flag.png
     - assets/images/logo_.png
+    - assets/icon/
 
   fonts:
     - family: OpenSans

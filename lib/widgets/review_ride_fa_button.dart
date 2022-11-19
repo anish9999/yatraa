@@ -18,9 +18,7 @@ Widget reviewRideFaButton(BuildContext context) {
         Map modifiedResponse =
             await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
 
-        // Navigator.of(context)
-        //     .pushNamed(ReviewRide.routeName, arguments: modifiedResponse);
-
+        // ignore: use_build_context_synchronously
         Navigator.push(
             context,
             MaterialPageRoute(

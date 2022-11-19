@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/home.dart';
 import '../screens/prepare_ride.dart';
-import '../screens/review_ride.dart';
+
 import '../screens/turn_by_turn.dart';
 
 import 'UI/splash.dart';

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:yatraa/widgets/app_drawer.dart';
 import '../helpers/shared_prefs.dart';
 import '../screens/prepare_ride.dart';
 
@@ -19,6 +20,28 @@ class _HomeState extends State<Home> {
   late String currentAddress;
   late CameraPosition _initialCameraPosition;
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Widget buildHamburgerMenu() {
+    return Positioned(
+      left: 15,
+      top: 45,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22.0),
+            boxShadow: const [
+              BoxShadow(
+                  blurRadius: 6.0, spreadRadius: 0.45, offset: Offset(0.7, 0.7))
+            ]),
+        child: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () => scaffoldKey.currentState?.openDrawer(),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     //Set initial camera position and current address
@@ -31,6 +54,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: AppDrawer(),
       body: Stack(
         children: [
           // Add MapboxMap here and enable user location
@@ -42,6 +67,9 @@ class _HomeState extends State<Home> {
             myLocationEnabled: true,
             compassEnabled: true,
           ),
+
+          //Hamburger Menu
+          buildHamburgerMenu(),
           Positioned(
             bottom: 0,
             child: SizedBox(

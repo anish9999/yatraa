@@ -13,6 +13,7 @@ Dio _dio = Dio();
 Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latLng) async {
   String query = '${latLng.longitude},${latLng.latitude}';
   String url = '$baseUrl/$query.json?access_token=$accessToken';
+  print(url);
   url = Uri.parse(url).toString();
 
   try {

@@ -39,14 +39,14 @@ Future<List> getParsedResponseForQuery(String value) async {
 Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
   Map<String, dynamic> response =
       await getReverseGeocodingGivenLatLngUsingMapbox(latLng);
-  Map feature = response['features'][0];
+  Map feature = response['features'][1];
   Map revGeocode = {
     'name': feature['text'],
     'address': feature['place_name'].split('${feature['text']}, ')[1],
-    'place': feature['place_name'],
+    'place': feature['place_name'].split(',').sublist(0, 3).join(","),
     'location': latLng
   };
-  print(revGeocode);
+  print(revGeocode['place']);
   return revGeocode;
 }
 

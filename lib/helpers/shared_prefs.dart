@@ -4,6 +4,18 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../main.dart';
 
+bool getFirstCall() {
+  return sharedPreferences.getBool("first-call")!;
+}
+
+bool getCurrentUserMode() {
+  if (sharedPreferences.getBool("first-call") == true) {
+    return false;
+  } else {
+    return sharedPreferences.getBool('user-mode')!;
+  }
+}
+
 LatLng getCurrentLatLngFromSharedPrefs() {
   return LatLng(sharedPreferences.getDouble('latitude')!,
       sharedPreferences.getDouble('longitude')!);
@@ -18,7 +30,7 @@ LatLng getTripLatLngFromSharedPrefs(String type) {
       json.decode(sharedPreferences.getString('source')!)['location'];
   List destinationLocationList =
       json.decode(sharedPreferences.getString('destination')!)['location'];
-  
+
   LatLng source = LatLng(sourceLocationList[0], sourceLocationList[1]);
   LatLng destination =
       LatLng(destinationLocationList[0], destinationLocationList[1]);

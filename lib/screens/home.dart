@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Stack(
         children: [
           // Add MapboxMap here and enable user location

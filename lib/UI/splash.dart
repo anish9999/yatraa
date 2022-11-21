@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
@@ -21,6 +22,9 @@ class _SplashState extends State<Splash> {
   }
 
   void initializeLocationAndSave() async {
+    //First time running the app
+    bool firstCall = await IsFirstRun.isFirstCall();
+
     // Ensure all permissions are collected for Locations
     Location _location = Location();
     bool? _serviceEnabled;
@@ -49,6 +53,7 @@ class _SplashState extends State<Splash> {
     sharedPreferences.setDouble('latitude', _locationData.latitude!);
     sharedPreferences.setDouble('longitude', _locationData.longitude!);
     sharedPreferences.setString('current-address', currentAddress);
+    sharedPreferences.setBool("first-call", firstCall);
 
     Navigator.pushNamedAndRemoveUntil(
         context, Home.routeName, (route) => false);

@@ -1,6 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/shared_prefs.dart';
+import '../main.dart';
+
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
@@ -10,7 +13,8 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   int value = 0;
-  bool positive = false;
+
+  bool positive = getCurrentUserMode();
 
   Widget buildDrawerHeader() {
     return DrawerHeader(
@@ -80,7 +84,12 @@ class _AppDrawerState extends State<AppDrawer> {
                           offset: Offset(0, 1.5),
                         ),
                       ],
-                      onChanged: (b) => setState(() => positive = b),
+                      onChanged: (b) {
+                        setState(() {
+                          positive = b;
+                          sharedPreferences.setBool('user-mode', positive);
+                        });
+                      },
                       iconBuilder: (value) => value
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(28),

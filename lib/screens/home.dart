@@ -24,15 +24,19 @@ class _HomeState extends State<Home> {
 
   Widget buildHamburgerMenu() {
     return Positioned(
-      left: 15,
-      top: 45,
+      left: 20,
+      top: 60,
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(22.0),
             boxShadow: const [
               BoxShadow(
-                  blurRadius: 6.0, spreadRadius: 0.45, offset: Offset(0.7, 0.7))
+                color: Colors.black26,
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 1.5),
+              ),
             ]),
         child: IconButton(
           icon: const Icon(Icons.menu),

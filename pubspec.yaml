@@ -51,6 +51,8 @@ flutter:
     - assets/images/driver.jpg
     - assets/images/passenger.jpg
     - assets/icon/
+    - assets/images/marker.png
+    - assets/images/p_marker.png
 
   fonts:
     - family: OpenSans

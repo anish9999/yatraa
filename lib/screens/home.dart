@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
   late String currentAddress;
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
+  late bool positive;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
 
     _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
     currentAddress = getCurrentAddressFromSharedPrefs();
+    positive = getCurrentUserMode();
     super.initState();
   }
 
@@ -60,7 +62,25 @@ class _HomeState extends State<Home> {
     this.controller = controller;
   }
 
-  _onStyleLoadedCallBack() async {}
+  // String? mapMarker() {
+  //   if (positive == true) {
+  //     "assets/images/marker.png";
+  //   } else {
+  //     "assets/images/p_marker.png";
+  //   }
+  // }
+
+  _onStyleLoadedCallBack() async {
+    await controller.addSymbol(SymbolOptions(
+      geometry: currentLocation,
+      iconSize: 1.5,
+      iconImage:
+          // positive == true
+          //     ? "assets/images/marker.png"
+          //     :
+          "assets/images/p_marker.png",
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +95,11 @@ class _HomeState extends State<Home> {
             initialCameraPosition: _initialCameraPosition,
             accessToken:
                 "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
-            myLocationEnabled: true,
+            // myLocationEnabled: true,
             compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
             onMapCreated: _onMapCreated,
-            //   onStyleLoadedCallback: _onStyleLoadedCallBack,
+            onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
 
           //Hamburger Menu

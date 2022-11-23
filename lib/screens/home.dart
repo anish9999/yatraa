@@ -19,6 +19,7 @@ class _HomeState extends State<Home> {
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
   late String currentAddress;
   late CameraPosition _initialCameraPosition;
+  late MapboxMapController controller;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -55,6 +56,12 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  _onMapCreated(MapboxMapController controller) async {
+    this.controller = controller;
+  }
+
+  _onStyleLoadedCallBack() async {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +77,14 @@ class _HomeState extends State<Home> {
                 "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
             myLocationEnabled: true,
             compassEnabled: true,
+            myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
+            onMapCreated: _onMapCreated,
+            //   onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
 
           //Hamburger Menu
           buildHamburgerMenu(),
+
           Positioned(
             bottom: 0,
             child: SizedBox(
@@ -113,6 +124,20 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 5,
+            bottom: 200,
+            child: SizedBox(
+              height: 35,
+              child: FloatingActionButton(
+                onPressed: () {
+                  controller.animateCamera(
+                      CameraUpdate.newCameraPosition(_initialCameraPosition));
+                },
+                child: const Icon(Icons.my_location),
               ),
             ),
           ),

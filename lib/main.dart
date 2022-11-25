@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yatraa/screens/driver_screen.dart';
+import 'package:yatraa/screens/passenger_screen.dart';
 
 import '../screens/home.dart';
 import '../screens/prepare_ride.dart';
@@ -10,6 +12,7 @@ import '../screens/turn_by_turn.dart';
 import 'UI/splash.dart';
 
 late SharedPreferences sharedPreferences;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //for splash screen
   sharedPreferences = await SharedPreferences
@@ -52,6 +55,8 @@ class MyApp extends StatelessWidget {
         PrepareRide.routeName: (context) => const PrepareRide(),
         // ReviewRide.routeName: (context) => ReviewRide(),
         TurnByTurn.routeName: (context) => const TurnByTurn(),
+        DriverScreen.routeName: (context) => const DriverScreen(),
+        PassengerScreen.routeName: (context) => const PassengerScreen(),
       },
     );
   }

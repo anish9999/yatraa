@@ -12,6 +12,8 @@ class PrepareRide extends StatefulWidget {
   State<PrepareRide> createState() => _PrepareRideState();
 
   // Declare a static function to reference setters from children
+
+  // ignore: library_private_types_in_public_api
   static _PrepareRideState? of(BuildContext context) =>
       context.findAncestorStateOfType<_PrepareRideState>();
 }

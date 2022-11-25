@@ -73,7 +73,7 @@ class _ReviewRideState extends State<ReviewRide> {
 
   _addSourceAndLineLayer() async {
     // Create a polyLine between source and destination
-    final _fills = {
+    final fills = {
       "type": "FeatureCollection",
       "features": [
         {
@@ -86,7 +86,7 @@ class _ReviewRideState extends State<ReviewRide> {
     };
 
     // Add new source and lineLayer
-    await controller.addSource("fills", GeojsonSourceProperties(data: _fills));
+    await controller.addSource("fills", GeojsonSourceProperties(data: fills));
     await controller.addLineLayer(
       "fills",
       "lines",

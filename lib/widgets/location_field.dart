@@ -43,7 +43,9 @@ class _LocationFieldState extends State<LocationField> {
     List response = await getParsedResponseForQuery(value);
 
     // Set responses and isDestination in parent
+    // ignore: use_build_context_synchronously
     PrepareRide.of(context)?.responsesState = response;
+    // ignore: use_build_context_synchronously
     PrepareRide.of(context)?.isResponseForDestinationState =
         widget.isDestination;
     setState(() => query = value);

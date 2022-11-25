@@ -26,35 +26,36 @@ class _SplashState extends State<Splash> {
     bool firstCall = await IsFirstRun.isFirstCall();
 
     // Ensure all permissions are collected for Locations
-    Location _location = Location();
-    bool? _serviceEnabled;
-    PermissionStatus? _permissionGranted;
+    Location location = Location();
+    bool? serviceEnabled;
+    PermissionStatus? permissionGranted;
 
-    _serviceEnabled = await _location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await _location.requestService();
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
     }
 
-    _permissionGranted = await _location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await _location.requestPermission();
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
     }
 
     // // Get the current user location
-    LocationData _locationData = await _location.getLocation();
+    LocationData locationData = await location.getLocation();
     LatLng currentLocation =
-        LatLng(_locationData.latitude!, _locationData.longitude!);
+        LatLng(locationData.latitude!, locationData.longitude!);
 
     // // Get the current user address
     String currentAddress =
         (await getParsedReverseGeocoding(currentLocation))['place'];
 
     // // Store the user location in sharedPreferences
-    sharedPreferences.setDouble('latitude', _locationData.latitude!);
-    sharedPreferences.setDouble('longitude', _locationData.longitude!);
+    sharedPreferences.setDouble('latitude', locationData.latitude!);
+    sharedPreferences.setDouble('longitude', locationData.longitude!);
     sharedPreferences.setString('current-address', currentAddress);
     sharedPreferences.setBool("first-call", firstCall);
 
+    // ignore: use_build_context_synchronously
     Navigator.pushNamedAndRemoveUntil(
         context, Home.routeName, (route) => false);
   }

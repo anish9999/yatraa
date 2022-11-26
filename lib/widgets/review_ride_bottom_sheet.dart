@@ -7,7 +7,7 @@ Widget reviewRideBottomSheet(
   // Get source and destination addresses from sharedPreferences
   String sourceAddress = getSourceAndDestinationPlaceText('source');
   String destAddress = getSourceAndDestinationPlaceText('destination');
-
+  String money = (double.parse(distance) * 5.5).toStringAsFixed(0);
   return Positioned(
     bottom: 0,
     child: SizedBox(
@@ -33,11 +33,11 @@ Widget reviewRideBottomSheet(
                     //     image: AssetImage('assets/image/sport-car.png'),
                     //     height: 50,
                     //     width: 50),
-                    title: const Text('Premier',
+                    title: const Text('Ride Review',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     subtitle: Text('$distance km, $dropOffTime drop off'),
-                    trailing: const Text('\$384.22',
+                    trailing: Text('Rs.$money',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
@@ -51,7 +51,7 @@ Widget reviewRideBottomSheet(
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text('Start your premier ride now'),
+                        Text('Start your ride now'),
                       ]),
                 ),
               ]),

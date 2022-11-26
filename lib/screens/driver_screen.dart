@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:yatraa/widgets/animated_toggle_button.dart';
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
@@ -20,7 +21,7 @@ class _DriverScreenState extends State<DriverScreen> {
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
   bool positive = getCurrentUserMode();
-  // var scaffoldKey = GlobalKey<ScaffoldState>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -46,9 +47,54 @@ class _DriverScreenState extends State<DriverScreen> {
     );
   }
 
+  Widget buildDriverScreenBottom() {
+    return Positioned(
+      bottom: 0,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Hello there!',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                const Text('Your vehicle is currently here:'),
+                Text(currentAddress,
+                    style: const TextStyle(color: Colors.indigo)),
+                const SizedBox(height: 20),
+                //AnimatedToggleButton(),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     // Navigator.of(context).pushNamed(PrepareRide.routeName);
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //       padding: const EdgeInsets.all(20)),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: const [
+                //       Text('Where do you wanna go today?'),
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       drawer: AppDrawer(),
       body: Stack(
         children: [
@@ -62,7 +108,7 @@ class _DriverScreenState extends State<DriverScreen> {
             onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
 
-          // HamburgerMenu(scaffoldKey),
+          HamburgerMenu(scaffoldKey),
 
           // const AnimatedToggleButton(),
           Positioned(
@@ -79,6 +125,7 @@ class _DriverScreenState extends State<DriverScreen> {
               ),
             ),
           ),
+          buildDriverScreenBottom(),
         ],
       ),
     );

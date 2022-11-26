@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
 import '../helpers/shared_prefs.dart';
-import '../widgets/animated_toggle_button.dart';
 
 class DriverScreen extends StatefulWidget {
-  const DriverScreen({super.key});
   static const routeName = "/driver-screen";
+
+  const DriverScreen({super.key});
 
   @override
   State<DriverScreen> createState() => _DriverScreenState();
@@ -19,6 +20,7 @@ class _DriverScreenState extends State<DriverScreen> {
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
   bool positive = getCurrentUserMode();
+  // var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -47,6 +49,7 @@ class _DriverScreenState extends State<DriverScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       body: Stack(
         children: [
           MapboxMap(
@@ -58,12 +61,10 @@ class _DriverScreenState extends State<DriverScreen> {
             onMapCreated: _onMapCreated,
             onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
-          // const Positioned(
-          //   left: 20,
-          //   top: 60,
-          //   child: HamburgerMenu(),
-          // ),
-          const AnimatedToggleButton(),
+
+          // HamburgerMenu(scaffoldKey),
+
+          // const AnimatedToggleButton(),
           Positioned(
             right: 5,
             bottom: 200,

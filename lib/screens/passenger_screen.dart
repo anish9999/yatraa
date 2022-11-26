@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
 import '../screens/prepare_ride.dart';
 import '../helpers/shared_prefs.dart';
-import '../widgets/animated_toggle_button.dart';
 
 //import '../widgets/hamburger_menu.dart';
 
 class PassengerScreen extends StatefulWidget {
-  const PassengerScreen({super.key});
   static const routeName = '/passenger-screen';
 
   @override
@@ -21,6 +20,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
   late String currentAddress;
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -82,6 +83,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: const AppDrawer(),
       body: Stack(
         children: [
           // Add MapboxMap here and enable user location
@@ -97,13 +100,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
           ),
           //Hamburger Menu
 
-          const AnimatedToggleButton(),
+          // const AnimatedToggleButton(),
 
-          // const Positioned(
-          //   left: 20,
-          //   top: 60,
-          //   child: HamburgerMenu(),
-          // ),
+          HamburgerMenu(scaffoldKey),
 
           buildPassengerScreenBottom(),
 

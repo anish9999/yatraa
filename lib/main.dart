@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         // ReviewRide.routeName: (context) => ReviewRide(),
         TurnByTurn.routeName: (context) => const TurnByTurn(),
         DriverScreen.routeName: (context) => const DriverScreen(),
-        PassengerScreen.routeName: (context) => const PassengerScreen(),
+        PassengerScreen.routeName: (context) => PassengerScreen(),
       },
     );
   }

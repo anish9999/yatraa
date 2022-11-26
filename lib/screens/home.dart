@@ -7,6 +7,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:yatraa/screens/driver_screen.dart';
 import 'package:yatraa/screens/passenger_screen.dart';
 import 'package:yatraa/widgets/app_drawer.dart';
+import 'package:yatraa/widgets/hamburger_menu.dart';
 import '../helpers/shared_prefs.dart';
 
 import '../main.dart';
@@ -27,30 +28,6 @@ class _HomeState extends State<Home> {
   late MapboxMapController controller;
   late bool positive;
 
-  // Widget buildHamburgerMenu() {
-  //   return Positioned(
-  //     left: 20,
-  //     top: 60,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: BorderRadius.circular(22.0),
-  //           boxShadow: const [
-  //             BoxShadow(
-  //               color: Colors.black26,
-  //               spreadRadius: 1,
-  //               blurRadius: 2,
-  //               offset: Offset(0, 1.5),
-  //             ),
-  //           ]),
-  //       child: IconButton(
-  //         icon: const Icon(Icons.menu),
-  //         onPressed: () => scaffoldKey.currentState?.openDrawer(),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   void initState() {
     //Set initial camera position and current address
@@ -64,7 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: positive == true ? const DriverScreen() : const PassengerScreen(),
+      body: positive == true ? DriverScreen() : PassengerScreen(),
     );
   }
 }

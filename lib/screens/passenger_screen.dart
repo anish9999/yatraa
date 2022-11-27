@@ -37,6 +37,16 @@ class _PassengerScreenState extends State<PassengerScreen> {
     this.controller = controller;
   }
 
+  _onStyleLoadedCallback() async {
+    await controller.addSymbol(
+      SymbolOptions(
+        geometry: LatLng(27.73066283502807, 85.34758484239046),
+        iconSize: 1.5,
+        iconImage: "assets/images/marker.png",
+      ),
+    );
+  }
+
   Widget buildPassengerScreenBottom() {
     return Positioned(
       bottom: 0,
@@ -95,8 +105,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
                 "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
             compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
-            onMapCreated: _onMapCreated,
             myLocationEnabled: true,
+            onMapCreated: _onMapCreated,
+            onStyleLoadedCallback: _onStyleLoadedCallback,
           ),
           //Hamburger Menu
 

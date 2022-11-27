@@ -9,7 +9,7 @@ import '../screens/review_ride.dart';
 
 Widget reviewRideFaButton(BuildContext context) {
   return FloatingActionButton.extended(
-      icon: const Icon(Icons.local_taxi),
+      icon: const Icon(Icons.airline_seat_recline_extra_sharp),
       onPressed: () async {
         // Get directions API response and pass to modified response
 

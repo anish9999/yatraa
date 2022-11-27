@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helpers/commons.dart';
 import '../helpers/shared_prefs.dart';
 import '../screens/turn_by_turn.dart';
 
@@ -7,7 +8,9 @@ Widget reviewRideBottomSheet(
   // Get source and destination addresses from sharedPreferences
   String sourceAddress = getSourceAndDestinationPlaceText('source');
   String destAddress = getSourceAndDestinationPlaceText('destination');
-  String money = (double.parse(distance) * 5.5).toStringAsFixed(0);
+
+  double money = getMoney(double.parse(distance));
+
   return Positioned(
     bottom: 0,
     child: SizedBox(
@@ -29,17 +32,24 @@ Widget reviewRideBottomSheet(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ListTile(
                     tileColor: Colors.grey[200],
-                    // leading: const Image(
-                    //     image: AssetImage('assets/image/sport-car.png'),
-                    //     height: 50,
-                    //     width: 50),
+                    leading: CircleAvatar(
+                      radius: 19,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(19),
+                        child: Image.asset(
+                          'assets/images/bus.png',
+                        ),
+                      ),
+                    ),
                     title: const Text('Ride Review',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     subtitle: Text('$distance km, $dropOffTime drop off'),
-                    trailing: Text('Rs.$money',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
+                    trailing: Text('Rs.${money.toStringAsFixed(0)}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        )),
                   ),
                 ),
                 ElevatedButton(

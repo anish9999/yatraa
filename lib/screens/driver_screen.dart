@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:yatraa/widgets/animated_toggle_button.dart';
+
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
@@ -69,20 +69,6 @@ class _DriverScreenState extends State<DriverScreen> {
                 Text(currentAddress,
                     style: const TextStyle(color: Colors.indigo)),
                 const SizedBox(height: 20),
-                //AnimatedToggleButton(),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     // Navigator.of(context).pushNamed(PrepareRide.routeName);
-                //   },
-                //   style: ElevatedButton.styleFrom(
-                //       padding: const EdgeInsets.all(20)),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: const [
-                //       Text('Where do you wanna go today?'),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -95,7 +81,7 @@ class _DriverScreenState extends State<DriverScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Stack(
         children: [
           MapboxMap(
@@ -107,10 +93,7 @@ class _DriverScreenState extends State<DriverScreen> {
             onMapCreated: _onMapCreated,
             onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
-
           HamburgerMenu(scaffoldKey),
-
-          // const AnimatedToggleButton(),
           Positioned(
             right: 5,
             bottom: 200,

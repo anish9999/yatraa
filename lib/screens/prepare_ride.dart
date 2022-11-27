@@ -65,7 +65,7 @@ class _PrepareRideState extends State<PrepareRide> {
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back)),
-        //title: const Text('S'),
+        title: const Text('Select your destination'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

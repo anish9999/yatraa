@@ -1,17 +1,12 @@
 //access token is required
 
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:yatraa/screens/driver_screen.dart';
-import 'package:yatraa/screens/passenger_screen.dart';
-import 'package:yatraa/widgets/app_drawer.dart';
-import 'package:yatraa/widgets/hamburger_menu.dart';
-import '../helpers/shared_prefs.dart';
 
-import '../main.dart';
-import '../screens/prepare_ride.dart';
+import '../screens/driver_screen.dart';
+import '../screens/passenger_screen.dart';
+
+import '../helpers/shared_prefs.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

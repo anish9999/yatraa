@@ -1,6 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
+import '../helpers/dio_exceptions.dart';
 import '../helpers/shared_prefs.dart';
 import '../main.dart';
 import '../screens/driver_screen.dart';
@@ -15,8 +18,12 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   bool positive = getCurrentUserMode();
+  LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
+
+  Dio _dio = Dio();
 
   Widget buildDrawerHeader() {
+    print(currentLocation);
     return DrawerHeader(
       child: Row(
         children: [
@@ -83,6 +90,32 @@ class _AppDrawerState extends State<AppDrawer> {
                 positive = b;
                 sharedPreferences.setBool('user-mode', positive);
                 if (positive == true) {
+                  //Future getDriverLocation() async {
+                  double lat = currentLocation.latitude;
+                  double lon = currentLocation.longitude;
+
+                  String data = "{lon:$lon,lat:$lat}";
+                  print(data);
+
+                  // print(query);
+                  String url = "https://yatraa.herokuapp.com/location/create";
+
+                  url = Uri.parse(url).toString();
+
+                  //  try {
+                  //  _dio.options.contentType = Headers.jsonContentType;
+                  //  final Response response =
+                  //  await
+                  _dio.post(url, data: data);
+
+                  //  return response.data;
+                  // } catch (e) {
+                  //   final errorMessage =
+                  //       DioExceptions.fromDioError(e as DioError).toString();
+                  //   debugPrint(errorMessage);
+                  // }
+                  // }
+
                   Navigator.of(context).pushNamed(DriverScreen.routeName);
                 } else {
                   Navigator.of(context).pushNamed(PassengerScreen.routeName);

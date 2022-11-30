@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:provider/provider.dart';
+import 'package:yatraa/providers/driver_location.dart';
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
@@ -23,6 +25,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late List<CameraPosition> driverLocationCoordinates;
+
   @override
   void initState() {
     //Set initial camera position and current address
@@ -38,13 +42,15 @@ class _PassengerScreenState extends State<PassengerScreen> {
   }
 
   _onStyleLoadedCallback() async {
-    await controller.addSymbol(
-      SymbolOptions(
-        geometry: LatLng(27.73066283502807, 85.34758484239046),
-        iconSize: 1.5,
-        iconImage: "assets/images/marker.png",
-      ),
-    );
+    for (CameraPosition coordinates in driverLocationCoordinates) {
+      await controller.addSymbol(
+        SymbolOptions(
+          geometry: coordinates.target,
+          iconSize: 1.5,
+          iconImage: "assets/images/marker.png",
+        ),
+      );
+    }
   }
 
   Widget buildPassengerScreenBottom() {
@@ -92,6 +98,19 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final driverLocationData = Provider.of<DriverLocation>(context);
+    final driverLocation = driverLocationData.locations;
+    driverLocationCoordinates = List<CameraPosition>.generate(
+      driverLocation.length,
+      (index) => CameraPosition(
+        target: LatLng(
+            double.parse(driverLocation[index]['coordinates']['latitude']),
+            double.parse(driverLocation[index]['coordinates']['longitude'])),
+        zoom: 15,
+      ),
+    );
+    print(driverLocationCoordinates);
+
     return Scaffold(
       key: scaffoldKey,
       drawer: const AppDrawer(),
@@ -109,10 +128,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
             onMapCreated: _onMapCreated,
             onStyleLoadedCallback: _onStyleLoadedCallback,
           ),
+
           //Hamburger Menu
-
-          // const AnimatedToggleButton(),
-
           HamburgerMenu(scaffoldKey),
 
           buildPassengerScreenBottom(),

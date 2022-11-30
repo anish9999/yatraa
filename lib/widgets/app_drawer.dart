@@ -93,8 +93,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   //Future getDriverLocation() async {
                   double lat = currentLocation.latitude;
                   double lon = currentLocation.longitude;
+                  //  print(lat);
+                  //print(lon);
 
-                  String data = "{lon:$lon,lat:$lat}";
+                  String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
                   print(data);
 
                   // print(query);

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yatraa/screens/driver_screen.dart';
+import 'package:yatraa/screens/login_screen.dart';
+import 'package:yatraa/screens/otp_verification_screen.dart';
 import 'package:yatraa/screens/passenger_screen.dart';
 
 import '../screens/home.dart';
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
         TurnByTurn.routeName: (context) => const TurnByTurn(),
         DriverScreen.routeName: (context) => const DriverScreen(),
         PassengerScreen.routeName: (context) => PassengerScreen(),
+        OtpVerificationScreen.routeName: (context) => OtpVerificationScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
       },
     );
   }

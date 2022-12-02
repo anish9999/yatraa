@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 import 'package:yatraa/providers/driver_location.dart';
+
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
@@ -48,9 +49,26 @@ class _PassengerScreenState extends State<PassengerScreen> {
           geometry: coordinates.target,
           iconSize: 1.5,
           iconImage: "assets/images/marker.png",
+
+          // textField: "11 passengers",
+          // textColor: "B1AEAD",
         ),
       );
+      controller.onSymbolTapped.add(_onSymbolTapped);
     }
+  }
+
+  void _onSymbolTapped(Symbol symbol) {
+    _showSnackBar('symbol', symbol.id);
+  }
+
+  _showSnackBar(String type, String id) {
+    // final snackBar = SnackBar(
+    //     content: Text('Tapped $type $id',
+    //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+    //     backgroundColor: Theme.of(context).primaryColor);
+    // ScaffoldMessenger.of(context).clearSnackBars();
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Widget buildPassengerScreenBottom() {
@@ -109,7 +127,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
         zoom: 15,
       ),
     );
-    print(driverLocationCoordinates);
+    // print(driverLocationCoordinates);
 
     return Scaffold(
       key: scaffoldKey,

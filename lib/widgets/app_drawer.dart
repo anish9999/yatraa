@@ -23,7 +23,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Dio _dio = Dio();
 
   Widget buildDrawerHeader() {
-    print(currentLocation);
+    // print(currentLocation);
     return DrawerHeader(
       child: Row(
         children: [
@@ -97,7 +97,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   //print(lon);
 
                   String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-                  print(data);
+                  // print(data);
 
                   // print(query);
                   String url = "https://yatraa.herokuapp.com/location/create";

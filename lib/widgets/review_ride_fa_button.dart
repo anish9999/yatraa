@@ -15,8 +15,11 @@ Widget reviewRideFaButton(BuildContext context) {
 
         LatLng sourceLatLng = getTripLatLngFromSharedPrefs('source');
         LatLng destinationLatLng = getTripLatLngFromSharedPrefs('destination');
+
         Map modifiedResponse =
             await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
+
+        // print(modifiedResponse);
 
         // ignore: use_build_context_synchronously
         Navigator.push(

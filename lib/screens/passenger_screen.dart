@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 import 'package:yatraa/providers/driver_location.dart';
+import 'package:yatraa/screens/review_ride.dart';
 
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
+import '../helpers/mapbox_handler.dart';
 import '../screens/prepare_ride.dart';
 import '../helpers/shared_prefs.dart';
 
@@ -49,26 +51,60 @@ class _PassengerScreenState extends State<PassengerScreen> {
           geometry: coordinates.target,
           iconSize: 1.5,
           iconImage: "assets/images/marker.png",
-
-          // textField: "11 passengers",
-          // textColor: "B1AEAD",
         ),
       );
-      controller.onSymbolTapped.add(_onSymbolTapped);
     }
+    controller.onSymbolTapped.add(_onSymbolTapped);
   }
 
   void _onSymbolTapped(Symbol symbol) {
-    _showSnackBar('symbol', symbol.id);
+    _showBottomSheet('symbol', symbol.id);
   }
 
-  _showSnackBar(String type, String id) {
+  _showBottomSheet(String type, String id) {
+    late LatLng destinationLatLng;
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          for (CameraPosition coordinates in driverLocationCoordinates) {
+            destinationLatLng = coordinates.target;
+          }
+          LatLng sourceLatLng = currentLocation;
+
+          return SizedBox(
+              height: 190,
+              child: Column(
+                children: [
+                  Text('Tapped $type $id',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  FloatingActionButton.extended(
+                    icon: const Icon(Icons.airline_seat_recline_extra_sharp),
+                    onPressed: () async {
+                      Map modifiedResponse = await getDirectionsAPIResponse(
+                          sourceLatLng, destinationLatLng);
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => ReviewRide(
+                                  modifiedResponse: modifiedResponse)));
+                    },
+                    label: const Text('Review Ride'),
+                  ),
+                ],
+              ));
+        });
     // final snackBar = SnackBar(
-    //     content: Text('Tapped $type $id',
+    //     content:
+    // Text('Tapped $type $id',
     //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     //     backgroundColor: Theme.of(context).primaryColor);
     // ScaffoldMessenger.of(context).clearSnackBars();
     // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // }
   }
 
   Widget buildPassengerScreenBottom() {

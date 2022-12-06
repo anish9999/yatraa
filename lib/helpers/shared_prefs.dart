@@ -4,6 +4,10 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../main.dart';
 
+// int getSymbolId() {
+//   return sharedPreferences.getInt("symbolId")!;
+// }
+
 bool getFirstCall() {
   return sharedPreferences.getBool("first-call")!;
 }

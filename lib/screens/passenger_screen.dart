@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
+
 import 'package:yatraa/providers/driver_location.dart';
-import 'package:yatraa/screens/review_ride.dart';
+import '../screens/review_journey.dart';
 
 import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
@@ -45,6 +46,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
   }
 
   _onStyleLoadedCallback() async {
+    // int symbolId = 0;
     for (CameraPosition coordinates in driverLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
@@ -53,30 +55,31 @@ class _PassengerScreenState extends State<PassengerScreen> {
           iconImage: "assets/images/marker.png",
         ),
       );
+      //sharedPreferences.setInt("symbolId", symbolId + 1);
     }
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
 
   void _onSymbolTapped(Symbol symbol) {
-    _showBottomSheet('symbol', symbol.id);
+    late LatLng destinationLatLng;
+    for (CameraPosition coordinates in driverLocationCoordinates) {
+      destinationLatLng = coordinates.target;
+    }
+    _showBottomSheet(destinationLatLng, symbol.id);
+    //   sharedPreferences.setString("symbolId", symbol.id);
   }
 
-  _showBottomSheet(String type, String id) {
-    late LatLng destinationLatLng;
-
+  _showBottomSheet(LatLng destinationLatLng, String id) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          for (CameraPosition coordinates in driverLocationCoordinates) {
-            destinationLatLng = coordinates.target;
-          }
           LatLng sourceLatLng = currentLocation;
 
           return SizedBox(
               height: 190,
               child: Column(
                 children: [
-                  Text('Tapped $type $id',
+                  Text('Tapped $destinationLatLng $id',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   FloatingActionButton.extended(
@@ -84,15 +87,15 @@ class _PassengerScreenState extends State<PassengerScreen> {
                     onPressed: () async {
                       Map modifiedResponse = await getDirectionsAPIResponse(
                           sourceLatLng, destinationLatLng);
-
+                      // print(modifiedResponse);
                       // ignore: use_build_context_synchronously
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => ReviewRide(
+                              builder: (_) => ReviewJourney(
                                   modifiedResponse: modifiedResponse)));
                     },
-                    label: const Text('Review Ride'),
+                    label: const Text('Review Journey'),
                   ),
                 ],
               ));
@@ -154,6 +157,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
   Widget build(BuildContext context) {
     final driverLocationData = Provider.of<DriverLocation>(context);
     final driverLocation = driverLocationData.locations;
+
     driverLocationCoordinates = List<CameraPosition>.generate(
       driverLocation.length,
       (index) => CameraPosition(

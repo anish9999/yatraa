@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-import '../helpers/dio_exceptions.dart';
 import '../helpers/shared_prefs.dart';
 import '../main.dart';
 import '../screens/driver_screen.dart';

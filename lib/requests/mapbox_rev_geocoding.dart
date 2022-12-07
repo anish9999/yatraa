@@ -4,10 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../helpers/dio_exceptions.dart';
+import '../main.dart';
 
 String baseUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 String accessToken =
-    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig";
+    MAPBOX_ACCESS_TOKEN;
 Dio _dio = Dio();
 
 Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latLng) async {

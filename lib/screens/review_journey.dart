@@ -7,6 +7,7 @@ import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
 
 import '../helpers/commons.dart';
+import '../main.dart';
 import '../widgets/review_ride_bottom_sheet.dart';
 
 class ReviewJourney extends StatefulWidget {
@@ -114,8 +115,7 @@ class _ReviewRideState extends State<ReviewJourney> {
             SizedBox(
               height: MediaQuery.of(context).size.height,
               child: MapboxMap(
-                accessToken:
-                    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
+                accessToken: MAPBOX_ACCESS_TOKEN,
                 initialCameraPosition: _initialCameraPosition,
                 onMapCreated: _onMapCreated,
                 onStyleLoadedCallback: _onStyleLoadedCallback,

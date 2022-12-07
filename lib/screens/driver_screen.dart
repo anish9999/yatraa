@@ -5,6 +5,7 @@ import 'package:yatraa/widgets/app_drawer.dart';
 import 'package:yatraa/widgets/hamburger_menu.dart';
 
 import '../helpers/shared_prefs.dart';
+import '../main.dart';
 
 class DriverScreen extends StatefulWidget {
   static const routeName = "/driver-screen";
@@ -87,7 +88,7 @@ class _DriverScreenState extends State<DriverScreen> {
           MapboxMap(
             initialCameraPosition: _initialCameraPosition,
             accessToken:
-                "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
+              MAPBOX_ACCESS_TOKEN,
             compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
             onMapCreated: _onMapCreated,

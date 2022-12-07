@@ -3,6 +3,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:yatraa/providers/driver_location.dart';
+import '../main.dart';
 import '../screens/review_journey.dart';
 
 import 'package:yatraa/widgets/app_drawer.dart';
@@ -59,12 +60,16 @@ class _PassengerScreenState extends State<PassengerScreen> {
     }
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
+//   Future<LatLng> getSymbolLatLng(Symbol symbol) async {
+//   return symbol.options.geometry!;
+// }
 
   void _onSymbolTapped(Symbol symbol) {
     late LatLng destinationLatLng;
-    for (CameraPosition coordinates in driverLocationCoordinates) {
-      destinationLatLng = coordinates.target;
-    }
+
+    //  for (CameraPosition coordinates in driverLocationCoordinates) {
+    destinationLatLng = symbol.options.geometry!;
+    // }
     _showBottomSheet(destinationLatLng, symbol.id);
     //   sharedPreferences.setString("symbolId", symbol.id);
   }
@@ -100,14 +105,6 @@ class _PassengerScreenState extends State<PassengerScreen> {
                 ],
               ));
         });
-    // final snackBar = SnackBar(
-    //     content:
-    // Text('Tapped $type $id',
-    //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-    //     backgroundColor: Theme.of(context).primaryColor);
-    // ScaffoldMessenger.of(context).clearSnackBars();
-    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    // }
   }
 
   Widget buildPassengerScreenBottom() {
@@ -178,8 +175,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
           MapboxMap(
             initialCameraPosition: _initialCameraPosition,
-            accessToken:
-                "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig",
+            accessToken: MAPBOX_ACCESS_TOKEN,
             compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
             myLocationEnabled: true,

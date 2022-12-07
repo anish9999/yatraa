@@ -16,6 +16,8 @@ import '../screens/turn_by_turn.dart';
 import 'UI/splash.dart';
 
 late SharedPreferences sharedPreferences;
+const String MAPBOX_ACCESS_TOKEN =
+    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //for splash screen

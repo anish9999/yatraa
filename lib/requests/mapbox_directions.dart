@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import "../main.dart";
 import '../helpers/dio_exceptions.dart';
 
 String baseUrl = 'https://api.mapbox.com/directions/v5/mapbox';
-String accessToken =
-    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig";
+String accessToken = MAPBOX_ACCESS_TOKEN;
 String navType = 'driving';
 
 Dio _dio = Dio();

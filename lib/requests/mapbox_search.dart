@@ -8,7 +8,7 @@ import '../main.dart';
 
 String baseUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 String accessToken =
-    "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig";
+    MAPBOX_ACCESS_TOKEN;
 String searchType = 'place%2Cpostcode%2Caddress%2Clocality%2Cpoi';
 String searchResultsLimit = '5';
 String proximity =

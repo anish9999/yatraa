@@ -1,19 +1,23 @@
 //access token is required
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import '../helpers/mapbox_handler.dart';
-import '../helpers/shared_prefs.dart';
 
+import '../screens/turn_by_turn.dart';
+import '../helpers/mapbox_handler.dart';
 import '../helpers/commons.dart';
 import '../main.dart';
-import '../widgets/review_ride_bottom_sheet.dart';
 
 class ReviewJourney extends StatefulWidget {
   final Map modifiedResponse;
-  const ReviewJourney({Key? key, required this.modifiedResponse})
-      : super(key: key);
+  final LatLng sourceAddress;
+  final LatLng destAddress;
+  const ReviewJourney({
+    Key? key,
+    required this.modifiedResponse,
+    required this.sourceAddress,
+    required this.destAddress,
+  }) : super(key: key);
 
   @override
   State<ReviewJourney> createState() => _ReviewRideState();
@@ -38,11 +42,8 @@ class _ReviewRideState extends State<ReviewJourney> {
     // initialise initialCameraPosition, address and trip end points
     _initialCameraPosition = CameraPosition(
       target: getCenterCoordinatesForPolyline(geometry),
-      zoom: 11,
+      zoom: 15,
     );
-
-    // _kTripEndPoints.add(CameraPosition(target: LatLng(27.7304405, 85.353566)));
-
     super.initState();
   }
 
@@ -123,7 +124,64 @@ class _ReviewRideState extends State<ReviewJourney> {
                 // minMaxZoomPreference: const MinMaxZoomPreference(11, 11),
               ),
             ),
-            //     reviewRideBottomSheet(context, distance, dropOffTime),
+            Positioned(
+              bottom: 0,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '$widget.sourceAddress ➡ $widget.destAddress',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(color: Colors.indigo),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: ListTile(
+                              tileColor: Colors.grey[200],
+                              leading: CircleAvatar(
+                                radius: 19,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(19),
+                                  child: Image.asset(
+                                    'assets/images/bus.png',
+                                  ),
+                                ),
+                              ),
+                              title: const Text('Journey Review',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              subtitle:
+                                  Text('$distance km, $dropOffTime drop off'),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(TurnByTurn.routeName);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(20)),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text('Start your journey now'),
+                                ]),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

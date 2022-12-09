@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
-import 'package:yatraa/providers/driver_location.dart';
+import '../providers/driver_location.dart';
 import '../main.dart';
 import '../screens/review_journey.dart';
-
-import 'package:yatraa/widgets/app_drawer.dart';
-import 'package:yatraa/widgets/hamburger_menu.dart';
-
+import '../widgets/app_drawer.dart';
+import '../widgets/hamburger_menu.dart';
 import '../helpers/mapbox_handler.dart';
 import '../screens/prepare_ride.dart';
 import '../helpers/shared_prefs.dart';
 
-//import '../widgets/hamburger_menu.dart';
-
 class PassengerScreen extends StatefulWidget {
   static const routeName = '/passenger-screen';
+
+  const PassengerScreen({super.key});
 
   @override
   State<PassengerScreen> createState() => _PassengerScreenState();
@@ -35,10 +33,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
   @override
   void initState() {
     //Set initial camera position and current address
-
     _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
     currentAddress = getCurrentAddressFromSharedPrefs();
-
     super.initState();
   }
 
@@ -47,7 +43,6 @@ class _PassengerScreenState extends State<PassengerScreen> {
   }
 
   _onStyleLoadedCallback() async {
-    // int symbolId = 0;
     for (CameraPosition coordinates in driverLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
@@ -56,22 +51,18 @@ class _PassengerScreenState extends State<PassengerScreen> {
           iconImage: "assets/images/marker.png",
         ),
       );
-      //sharedPreferences.setInt("symbolId", symbolId + 1);
     }
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
+
 //   Future<LatLng> getSymbolLatLng(Symbol symbol) async {
 //   return symbol.options.geometry!;
 // }
 
   void _onSymbolTapped(Symbol symbol) {
     late LatLng destinationLatLng;
-
-    //  for (CameraPosition coordinates in driverLocationCoordinates) {
     destinationLatLng = symbol.options.geometry!;
-    // }
     _showBottomSheet(destinationLatLng, symbol.id);
-    //   sharedPreferences.setString("symbolId", symbol.id);
   }
 
   _showBottomSheet(LatLng destinationLatLng, String id) {
@@ -79,31 +70,33 @@ class _PassengerScreenState extends State<PassengerScreen> {
         context: context,
         builder: (BuildContext context) {
           LatLng sourceLatLng = currentLocation;
-
           return SizedBox(
-              height: 190,
-              child: Column(
-                children: [
-                  Text('Tapped $destinationLatLng $id',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  FloatingActionButton.extended(
-                    icon: const Icon(Icons.airline_seat_recline_extra_sharp),
-                    onPressed: () async {
-                      Map modifiedResponse = await getDirectionsAPIResponse(
-                          sourceLatLng, destinationLatLng);
-                      // print(modifiedResponse);
-                      // ignore: use_build_context_synchronously
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ReviewJourney(
-                                  modifiedResponse: modifiedResponse)));
-                    },
-                    label: const Text('Review Journey'),
-                  ),
-                ],
-              ));
+            height: 190,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton.extended(
+                  icon: const Icon(Icons.airline_seat_recline_extra_sharp),
+                  onPressed: () async {
+                    Map modifiedResponse = await getDirectionsAPIResponse(
+                        sourceLatLng, destinationLatLng);
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ReviewJourney(
+                          modifiedResponse: modifiedResponse,
+                          sourceAddress: sourceLatLng,
+                          destAddress: destinationLatLng,
+                        ),
+                      ),
+                    );
+                  },
+                  label: const Text('Review Journey'),
+                ),
+              ],
+            ),
+          );
         });
   }
 

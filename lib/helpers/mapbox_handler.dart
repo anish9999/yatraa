@@ -50,15 +50,6 @@ Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
   return revGeocode;
 }
 
-Future getReverseGeocoding(LatLng latLng) async {
-  Map<String, dynamic> response =
-      await getReverseGeocodingGivenLatLngUsingMapbox(latLng);
-  Map feature = response['features'][1];
-
-  print(feature['place_name']);
-  return feature['place_name'];
-}
-
 // ----------------------------- Mapbox Directions API -----------------------------
 Future<Map> getDirectionsAPIResponse(
     LatLng sourceLatLng, LatLng destinationLatLng) async {

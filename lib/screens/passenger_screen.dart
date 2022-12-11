@@ -132,9 +132,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
     driverLocationCoordinates = List<CameraPosition>.generate(
       driverLocation.length,
       (index) => CameraPosition(
-        target: LatLng(
-            double.parse(driverLocation[index]['coordinates']['latitude']),
-            double.parse(driverLocation[index]['coordinates']['longitude'])),
+        target: LatLng(driverLocation[index]['latitude'],
+            driverLocation[index]['longitude']),
         zoom: 15,
       ),
     );

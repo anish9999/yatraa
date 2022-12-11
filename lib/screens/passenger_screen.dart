@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
+import 'package:yatraa/widgets/journey_review_bottom_sheet.dart';
 
+import '../helpers/commons.dart';
 import '../providers/driver_location.dart';
 import '../main.dart';
-import '../screens/review_journey.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/hamburger_menu.dart';
 import '../helpers/mapbox_handler.dart';
@@ -29,6 +30,10 @@ class _PassengerScreenState extends State<PassengerScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   late List<CameraPosition> driverLocationCoordinates;
+
+  late String distance;
+  late String dropOffTime;
+  late Map geometry;
 
   @override
   void initState() {
@@ -59,44 +64,20 @@ class _PassengerScreenState extends State<PassengerScreen> {
 //   return symbol.options.geometry!;
 // }
 
-  void _onSymbolTapped(Symbol symbol) {
-    late LatLng destinationLatLng;
-    destinationLatLng = symbol.options.geometry!;
-    _showBottomSheet(destinationLatLng, symbol.id);
-  }
+  void _onSymbolTapped(Symbol symbol) async {
+    LatLng sourceLatLng = currentLocation;
+    LatLng destinationLatLng = symbol.options.geometry!;
+    Map modifiedResponse =
+        await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
+    distance = (modifiedResponse['distance'] / 1000).toStringAsFixed(1);
+    dropOffTime = getDropOffTime(modifiedResponse['duration']);
+    //  geometry = modifiedResponse['geometry'];
 
-  _showBottomSheet(LatLng destinationLatLng, String id) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          LatLng sourceLatLng = currentLocation;
-          return SizedBox(
-            height: 190,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FloatingActionButton.extended(
-                  icon: const Icon(Icons.airline_seat_recline_extra_sharp),
-                  onPressed: () async {
-                    Map modifiedResponse = await getDirectionsAPIResponse(
-                        sourceLatLng, destinationLatLng);
-                    // ignore: use_build_context_synchronously
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ReviewJourney(
-                          modifiedResponse: modifiedResponse,
-                          sourceAddress: sourceLatLng,
-                          destAddress: destinationLatLng,
-                        ),
-                      ),
-                    );
-                  },
-                  label: const Text('Review Journey'),
-                ),
-              ],
-            ),
-          );
+          return JourneyReviewBottomSheet(context, sourceLatLng,
+              destinationLatLng, modifiedResponse, distance, dropOffTime);
         });
   }
 

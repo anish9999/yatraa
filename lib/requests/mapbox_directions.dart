@@ -10,7 +10,8 @@ import '../helpers/dio_exceptions.dart';
 
 String baseUrl = 'https://api.mapbox.com/directions/v5/mapbox';
 String accessToken = MAPBOX_ACCESS_TOKEN;
-String navType = 'driving';
+// String navType = 'driving';
+String navType = 'walking';
 
 Dio _dio = Dio();
 

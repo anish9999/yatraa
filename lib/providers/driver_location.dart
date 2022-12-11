@@ -4,6 +4,7 @@ class DriverLocation with ChangeNotifier {
   List<Map> _locations = [
     {
       'id': 1,
+      'address': 'Rustu',
       'coordinates': {
         'latitude': '27.73066283502807',
         'longitude': ' 85.34758484239046',
@@ -11,6 +12,7 @@ class DriverLocation with ChangeNotifier {
     },
     {
       'id': 2,
+      'address': 'Rustu',
       'coordinates': {
         'latitude': '27.730195645064825',
         'longitude': '85.35621853819345',
@@ -18,6 +20,7 @@ class DriverLocation with ChangeNotifier {
     },
     {
       'id': 3,
+      'address': 'Rustu',
       'coordinates': {
         'latitude': '27.67920472602175',
         'longitude': '85.32652301220861',
@@ -25,6 +28,7 @@ class DriverLocation with ChangeNotifier {
     },
     {
       'id': 4,
+      'address': 'Rustu',
       'coordinates': {
         'latitude': '27.680974791341768',
         'longitude': '85.3234030602186',

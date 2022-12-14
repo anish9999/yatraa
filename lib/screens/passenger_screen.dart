@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:yatraa/widgets/journey_review_bottom_sheet.dart';
 
 import '../helpers/commons.dart';
-import '../providers/driver_location.dart';
+import '../providers/bus_stop_location.dart';
 import '../main.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/hamburger_menu.dart';
@@ -29,7 +29,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  late List<CameraPosition> driverLocationCoordinates;
+  late List<CameraPosition> busStopLocationCoordinates;
 
   late String distance;
   late String dropOffTime;
@@ -48,12 +48,12 @@ class _PassengerScreenState extends State<PassengerScreen> {
   }
 
   _onStyleLoadedCallback() async {
-    for (CameraPosition coordinates in driverLocationCoordinates) {
+    for (CameraPosition coordinates in busStopLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
           geometry: coordinates.target,
           iconSize: 1.5,
-          iconImage: "assets/images/marker.png",
+          iconImage: "assets/images/bus-stop.png",
         ),
       );
     }
@@ -126,18 +126,17 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final driverLocationData = Provider.of<DriverLocation>(context);
-    final driverLocation = driverLocationData.locations;
+    final busStopLocationData = Provider.of<BusStopLocation>(context);
+    final busStopLocation = busStopLocationData.locations;
 
-    driverLocationCoordinates = List<CameraPosition>.generate(
-      driverLocation.length,
+    busStopLocationCoordinates = List<CameraPosition>.generate(
+      busStopLocation.length,
       (index) => CameraPosition(
-        target: LatLng(driverLocation[index]['latitude'],
-            driverLocation[index]['longitude']),
+        target: LatLng(busStopLocation[index]['latitude'],
+            busStopLocation[index]['longitude']),
         zoom: 15,
       ),
     );
-    // print(driverLocationCoordinates);
 
     return Scaffold(
       key: scaffoldKey,

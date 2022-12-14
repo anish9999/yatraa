@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yatraa/providers/driver_location.dart';
+import 'package:yatraa/providers/bus_stop_location.dart';
 import 'package:yatraa/screens/driver_screen.dart';
 import 'package:yatraa/screens/login_screen.dart';
 import 'package:yatraa/screens/otp_verification_screen.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => DriverLocation(),
+      create: (context) => BusStopLocation(),
       child: MaterialApp(
         title: 'Yatraa',
         theme: ThemeData(

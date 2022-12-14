@@ -54,6 +54,7 @@ flutter:
     - assets/images/marker.png
     - assets/images/p_marker.png
     - assets/images/bus.png
+    - assets/images/bus-stop.png
 
   fonts:
     - family: OpenSans

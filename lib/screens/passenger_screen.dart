@@ -132,8 +132,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
     busStopLocationCoordinates = List<CameraPosition>.generate(
       busStopLocation.length,
       (index) => CameraPosition(
-        target: LatLng(busStopLocation[index]['latitude'],
-            busStopLocation[index]['longitude']),
+        target: LatLng(double.parse(busStopLocation[index]['latitude']),
+            double.parse(busStopLocation[index]['longitude'])),
         zoom: 15,
       ),
     );

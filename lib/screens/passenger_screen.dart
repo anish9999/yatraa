@@ -67,6 +67,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
   void _onSymbolTapped(Symbol symbol) async {
     LatLng sourceLatLng = currentLocation;
     LatLng destinationLatLng = symbol.options.geometry!;
+    final destAddress =
+        await getReverseGeocodingforDestination(destinationLatLng);
+
     Map modifiedResponse =
         await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
     distance = (modifiedResponse['distance'] / 1000).toStringAsFixed(1);
@@ -76,8 +79,15 @@ class _PassengerScreenState extends State<PassengerScreen> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return JourneyReviewBottomSheet(context, sourceLatLng,
-              destinationLatLng, modifiedResponse, distance, dropOffTime);
+          return JourneyReviewBottomSheet(
+            context,
+            sourceLatLng,
+            destinationLatLng,
+            modifiedResponse,
+            distance,
+            dropOffTime,
+            destAddress,
+          );
         });
   }
 
@@ -132,8 +142,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
     busStopLocationCoordinates = List<CameraPosition>.generate(
       busStopLocation.length,
       (index) => CameraPosition(
-        target: LatLng(double.parse(busStopLocation[index]['latitude']),
-            double.parse(busStopLocation[index]['longitude'])),
+        target: LatLng(busStopLocation[index]['latitude'],
+            busStopLocation[index]['longitude']),
         zoom: 15,
       ),
     );
@@ -156,7 +166,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
           ),
 
           //Hamburger Menu
-          HamburgerMenu(scaffoldKey),
+          hamburgerMenu(scaffoldKey),
 
           buildPassengerScreenBottom(),
 

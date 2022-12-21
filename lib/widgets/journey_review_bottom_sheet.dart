@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../helpers/shared_prefs.dart';
-import '../providers/bus_stop_location.dart';
 import '../screens/review_journey.dart';
 
 // ignore: non_constant_identifier_names
 Widget JourneyReviewBottomSheet(context, sourceLatLng, destLatLng,
-    modifiedResponse, distance, dropOffTime) {
-  final busStopLocationData = Provider.of<BusStopLocation>(context).locations;
+    modifiedResponse, distance, dropOffTime, destAddress) {
   final sourceAddress = getCurrentAddressFromSharedPrefs();
-  late String destAddress;
 
-  // print(destLatLng.latitude);
-  // print(destLatLng.longitude);
-
-  for (int id = 0; id < busStopLocationData.length; id++) {
-    if (busStopLocationData[id]['latitude'] == destLatLng.latitude &&
-        busStopLocationData[id]['longitude'] == destLatLng.longitude) {
-      destAddress = busStopLocationData[id]['address'];
-    }
-  }
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     child: Card(
@@ -54,6 +41,7 @@ Widget JourneyReviewBottomSheet(context, sourceLatLng, destLatLng,
                   ),
                 ),
               ),
+
               ElevatedButton(
                 onPressed: () async {
                   // ignore: use_build_context_synchronously
@@ -62,8 +50,10 @@ Widget JourneyReviewBottomSheet(context, sourceLatLng, destLatLng,
                     MaterialPageRoute(
                       builder: (_) => ReviewJourney(
                         modifiedResponse: modifiedResponse,
-                        sourceAddress: sourceLatLng,
-                        destAddress: destLatLng,
+                        sourceLatLng: sourceLatLng,
+                        destLatLng: destLatLng,
+                        sourceAddress: sourceAddress,
+                        destAddress: destAddress,
                       ),
                     ),
                   );

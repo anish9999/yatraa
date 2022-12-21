@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget HamburgerMenu(var scaffoldKey) {
+Widget hamburgerMenu(var scaffoldKey) {
   return Positioned(
     left: 20,
     top: 60,

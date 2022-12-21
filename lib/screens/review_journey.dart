@@ -10,11 +10,15 @@ import '../main.dart';
 
 class ReviewJourney extends StatefulWidget {
   final Map modifiedResponse;
-  final LatLng sourceAddress;
-  final LatLng destAddress;
+  final LatLng sourceLatLng;
+  final LatLng destLatLng;
+  final String sourceAddress;
+  final String destAddress;
   const ReviewJourney({
     Key? key,
     required this.modifiedResponse,
+    required this.sourceLatLng,
+    required this.destLatLng,
     required this.sourceAddress,
     required this.destAddress,
   }) : super(key: key);
@@ -137,7 +141,7 @@ class _ReviewRideState extends State<ReviewJourney> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '$widget.sourceAddress ➡ $widget.destAddress',
+                            '${widget.sourceAddress.substring(0, widget.sourceAddress.indexOf(","))} ➡ ${widget.destAddress}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -147,21 +151,19 @@ class _ReviewRideState extends State<ReviewJourney> {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: ListTile(
                               tileColor: Colors.grey[200],
-                              leading: CircleAvatar(
-                                radius: 19,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(19),
-                                  child: Image.asset(
-                                    'assets/images/bus.png',
-                                  ),
-                                ),
-                              ),
+                              leading: const CircleAvatar(
+                                  radius: 25,
+                                  child: Icon(Icons.directions_walk_outlined)),
                               title: const Text('Journey Review',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),
-                              subtitle:
-                                  Text('$distance km, $dropOffTime drop off'),
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                      '$distance km,Can reach there by $dropOffTime'),
+                                ],
+                              ),
                             ),
                           ),
                           ElevatedButton(

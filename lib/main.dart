@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
           // ReviewRide.routeName: (context) => ReviewRide(),
           TurnByTurn.routeName: (context) => const TurnByTurn(),
           DriverScreen.routeName: (context) => const DriverScreen(),
-          PassengerScreen.routeName: (context) => PassengerScreen(),
+          PassengerScreen.routeName: (context) => const PassengerScreen(),
           OtpVerificationScreen.routeName: (context) => OtpVerificationScreen(),
           LoginScreen.routeName: (context) => const LoginScreen(),
         },

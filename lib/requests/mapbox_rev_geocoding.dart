@@ -7,8 +7,7 @@ import '../helpers/dio_exceptions.dart';
 import '../main.dart';
 
 String baseUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
-String accessToken =
-    MAPBOX_ACCESS_TOKEN;
+String accessToken = MAPBOX_ACCESS_TOKEN;
 Dio _dio = Dio();
 
 Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latLng) async {
@@ -20,7 +19,7 @@ Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latLng) async {
   try {
     _dio.options.contentType = Headers.jsonContentType;
     final responseData = await _dio.get(url);
-
+  
     return responseData.data;
   } catch (e) {
     final errorMessage = DioExceptions.fromDioError(e as DioError).toString();

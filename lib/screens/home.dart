@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
   late String currentAddress;
-  late CameraPosition _initialCameraPosition;
+
   late MapboxMapController controller;
   late bool positive;
 
@@ -27,7 +27,6 @@ class _HomeState extends State<Home> {
   void initState() {
     //Set initial camera position and current address
 
-    _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
     currentAddress = getCurrentAddressFromSharedPrefs();
     positive = getCurrentUserMode();
     super.initState();
@@ -36,7 +35,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: positive == true ? DriverScreen() : PassengerScreen(),
+      body: positive == true ? const DriverScreen() : const PassengerScreen(),
     );
   }
 }

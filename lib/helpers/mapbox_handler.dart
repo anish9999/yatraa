@@ -46,8 +46,24 @@ Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
     'place': feature['place_name'].split(',').sublist(0, 3).join(","),
     'location': latLng
   };
-  // print(revGeocode['place']);
+
   return revGeocode;
+}
+
+//Reverse Geocoding for destination
+
+Future getReverseGeocodingforDestination(LatLng latLng) async {
+  Map<String, dynamic> response =
+      await getReverseGeocodingGivenLatLngUsingMapbox(latLng);
+  Map feature = response['features'][1];
+  Map revGeocode = {
+    'name': feature['text'],
+    'address': feature['place_name'].split('${feature['text']}, ')[1],
+    'place': feature['place_name'].split(',').sublist(0, 3).join(","),
+    'location': latLng
+  };
+
+  return revGeocode['name'];
 }
 
 // ----------------------------- Mapbox Directions API -----------------------------

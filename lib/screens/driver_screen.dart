@@ -94,7 +94,7 @@ class _DriverScreenState extends State<DriverScreen> {
             onMapCreated: _onMapCreated,
             onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
-          HamburgerMenu(scaffoldKey),
+          hamburgerMenu(scaffoldKey),
           Positioned(
             right: 5,
             bottom: 200,

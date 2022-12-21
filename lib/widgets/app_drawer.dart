@@ -19,7 +19,7 @@ class _AppDrawerState extends State<AppDrawer> {
   bool positive = getCurrentUserMode();
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
 
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   Widget buildDrawerHeader() {
     // print(currentLocation);

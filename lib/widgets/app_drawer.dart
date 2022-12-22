@@ -99,7 +99,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   // print(data);
 
                   // print(query);
-                  String url = "https://yatraa.herokuapp.com/location/create";
+                  // String url = "https://yatraa.herokuapp.com/location/create";
+                  String url = "http://192.168.10.72:8000/location/create";
 
                   url = Uri.parse(url).toString();
 
@@ -151,6 +152,23 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                   ),
           ),
+          ElevatedButton(
+              onPressed: () async {
+                try {
+                  var response =
+                      await Dio().get('http://192.168.10.72:8000/location/7');
+                  var parsedResponse = {
+                    "id": response.data['id'],
+                    "latitude": response.data['lat'],
+                    "longitude": response.data['lon'],
+                  };
+
+                  print(parsedResponse);
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: Container()),
         ],
       ),
     );

@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:provider/provider.dart';
+import 'package:yatraa/providers/driver_location.dart';
 import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
 
 import '../helpers/commons.dart';
 import '../main.dart';
+import '../providers/bus_stop_location.dart';
 import '../widgets/review_ride_bottom_sheet.dart';
 
 class ReviewRide extends StatefulWidget {
@@ -25,6 +28,9 @@ class _ReviewRideState extends State<ReviewRide> {
   late MapboxMapController controller;
   late CameraPosition _initialCameraPosition;
 
+  late List<CameraPosition> busStopLocationCoordinates;
+  late List<CameraPosition> driverLocationCoordinates;
+
   // Directions API response related
   late String distance;
   late String dropOffTime;
@@ -38,7 +44,7 @@ class _ReviewRideState extends State<ReviewRide> {
     // initialise initialCameraPosition, address and trip end points
     _initialCameraPosition = CameraPosition(
       target: getCenterCoordinatesForPolyline(geometry),
-      zoom: 11,
+      zoom: 14,
     );
 
     for (String type in ['source', 'destination']) {
@@ -59,49 +65,51 @@ class _ReviewRideState extends State<ReviewRide> {
   }
 
   _onStyleLoadedCallback() async {
-    for (int i = 0; i < _kTripEndPoints.length; i++) {
-      // String iconImage = i == 0 ? 'circle' : 'square';
+    for (CameraPosition coordinates in busStopLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
-          geometry: _kTripEndPoints[i].target,
-          iconSize: 0.1,
-          //  iconImage: "assets/icon/$iconImage.png",
+          geometry: coordinates.target,
+          iconSize: 1.5,
+          iconImage: "assets/images/bus-stop.png",
         ),
       );
     }
-    _addSourceAndLineLayer();
-  }
-
-  _addSourceAndLineLayer() async {
-    // Create a polyLine between source and destination
-    final fills = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "id": 0,
-          "properties": <String, dynamic>{},
-          "geometry": geometry,
-        },
-      ],
-    };
-
-    // Add new source and lineLayer
-    await controller.addSource("fills", GeojsonSourceProperties(data: fills));
-    await controller.addLineLayer(
-      "fills",
-      "lines",
-      LineLayerProperties(
-        lineColor: Colors.green.toHexStringRGB(),
-        lineCap: "round",
-        lineJoin: "round",
-        lineWidth: 3,
-      ),
-    );
+    for (CameraPosition coordinates in driverLocationCoordinates) {
+      await controller.addSymbol(
+        SymbolOptions(
+          geometry: coordinates.target,
+          iconSize: 1.5,
+          iconImage: "assets/images/marker.png",
+        ),
+      );
+    }
+    // controller.onSymbolTapped.add(_onSymbolTapped);
   }
 
   @override
   Widget build(BuildContext context) {
+    final busStopLocationData = Provider.of<BusStopLocation>(context);
+    final busStopLocation = busStopLocationData.locations;
+
+    busStopLocationCoordinates = List<CameraPosition>.generate(
+      busStopLocation.length,
+      (index) => CameraPosition(
+        target: LatLng(busStopLocation[index]['latitude'],
+            busStopLocation[index]['longitude']),
+        zoom: 15,
+      ),
+    );
+
+    final driverLocation = Provider.of<DriverLocation>(context).locations;
+    driverLocationCoordinates = List<CameraPosition>.generate(
+      driverLocation.length,
+      (index) => CameraPosition(
+        target: LatLng(driverLocation[index]['latitude'],
+            driverLocation[index]['longitude']),
+        zoom: 15,
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -119,13 +127,27 @@ class _ReviewRideState extends State<ReviewRide> {
               child: MapboxMap(
                 accessToken: MAPBOX_ACCESS_TOKEN,
                 initialCameraPosition: _initialCameraPosition,
+                myLocationEnabled: true,
                 onMapCreated: _onMapCreated,
                 onStyleLoadedCallback: _onStyleLoadedCallback,
                 myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
-                // minMaxZoomPreference: const MinMaxZoomPreference(11, 11),
               ),
             ),
             reviewRideBottomSheet(context, distance, dropOffTime),
+            Positioned(
+              right: 5,
+              bottom: 230,
+              child: SizedBox(
+                height: 35,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    controller.animateCamera(
+                        CameraUpdate.newCameraPosition(_initialCameraPosition));
+                  },
+                  child: const Icon(Icons.my_location),
+                ),
+              ),
+            ),
           ],
         ),
       ),

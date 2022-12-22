@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:provider/provider.dart';
+import 'package:yatraa/providers/driver_location.dart';
 
 import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
@@ -20,7 +22,7 @@ Widget reviewRideFaButton(BuildContext context) {
             await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
 
         //print(modifiedResponse);
-
+        // Provider.of<DriverLocation>(context).addLocation();
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,

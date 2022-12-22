@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yatraa/providers/bus_stop_location.dart';
+import 'package:yatraa/providers/driver_location.dart';
 import 'package:yatraa/screens/driver_screen.dart';
 import 'package:yatraa/screens/login_screen.dart';
 import 'package:yatraa/screens/otp_verification_screen.dart';
@@ -38,38 +39,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => BusStopLocation(),
-      child: MaterialApp(
-        title: 'Yatraa',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          fontFamily: 'Quicksand',
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.green.shade600),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+      child: ChangeNotifierProvider(
+        create: (context) => DriverLocation(),
+        child: MaterialApp(
+          title: 'Yatraa',
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+            fontFamily: 'Quicksand',
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green.shade600),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
+                enableFeedback: true,
               ),
-              enableFeedback: true,
             ),
           ),
+          debugShowCheckedModeBanner: false,
+          //initialRoute: LoginScreen.routeName,
+          routes: {
+            "/": (context) => const Splash(),
+            Home.routeName: (context) => const Home(),
+            PrepareRide.routeName: (context) => const PrepareRide(),
+            // ReviewRide.routeName: (context) => ReviewRide(),
+            TurnByTurn.routeName: (context) => const TurnByTurn(),
+            DriverScreen.routeName: (context) => const DriverScreen(),
+            PassengerScreen.routeName: (context) => const PassengerScreen(),
+            OtpVerificationScreen.routeName: (context) =>
+                OtpVerificationScreen(),
+            LoginScreen.routeName: (context) => const LoginScreen(),
+          },
         ),
-        debugShowCheckedModeBanner: false,
-        //initialRoute: LoginScreen.routeName,
-        routes: {
-          "/": (context) => const Splash(),
-          Home.routeName: (context) => const Home(),
-          PrepareRide.routeName: (context) => const PrepareRide(),
-          // ReviewRide.routeName: (context) => ReviewRide(),
-          TurnByTurn.routeName: (context) => const TurnByTurn(),
-          DriverScreen.routeName: (context) => const DriverScreen(),
-          PassengerScreen.routeName: (context) => const PassengerScreen(),
-          OtpVerificationScreen.routeName: (context) => OtpVerificationScreen(),
-          LoginScreen.routeName: (context) => const LoginScreen(),
-        },
       ),
     );
   }

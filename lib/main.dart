@@ -10,6 +10,7 @@ import 'package:yatraa/screens/driver_screen.dart';
 import 'package:yatraa/screens/login_screen.dart';
 import 'package:yatraa/screens/otp_verification_screen.dart';
 import 'package:yatraa/screens/passenger_screen.dart';
+import 'package:yatraa/screens/rate_driver_screen.dart';
 
 import '../screens/home.dart';
 import '../screens/prepare_ride.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
             OtpVerificationScreen.routeName: (context) =>
                 OtpVerificationScreen(),
             LoginScreen.routeName: (context) => const LoginScreen(),
+            RateDriverScreen.routeName: (context) => const RateDriverScreen(),
           },
         ),
       ),

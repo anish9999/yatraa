@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:yatraa/screens/rate_driver_screen.dart';
 import '../helpers/commons.dart';
 import '../helpers/shared_prefs.dart';
-import '../screens/turn_by_turn.dart';
 
 Widget reviewRideBottomSheet(
     BuildContext context, String distance, String dropOffTime) {
@@ -54,14 +54,14 @@ Widget reviewRideBottomSheet(
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(TurnByTurn.routeName);
+                    Navigator.of(context).pushNamed(RateDriverScreen.routeName);
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(20)),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text('Start your ride now'),
+                        Text('Rate Your Driver'),
                       ]),
                 ),
               ]),

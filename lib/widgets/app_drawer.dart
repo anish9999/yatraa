@@ -68,107 +68,90 @@ class _AppDrawerState extends State<AppDrawer> {
             height: 170,
             child: buildDrawerHeader(),
           ),
-          AnimatedToggleSwitch<bool>.dual(
-            current: positive,
-            first: false,
-            second: true,
-            dif: 121.0,
-            borderColor: Colors.transparent,
-            borderWidth: 5.0,
-            height: 55,
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black26,
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 1.5),
-              ),
-            ],
-            onChanged: (b) {
-              setState(() {
-                positive = b;
-                sharedPreferences.setBool('user-mode', positive);
-                if (positive == true) {
-                  //Future getDriverLocation() async {
-                  double lat = currentLocation.latitude;
-                  double lon = currentLocation.longitude;
-                  //  print(lat);
-                  //print(lon);
-
-                  String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-                  // print(data);
-
-                  // print(query);
-                  // String url = "https://yatraa.herokuapp.com/location/create";
-                  String url = "http://192.168.10.72:8000/location/create";
-
-                  url = Uri.parse(url).toString();
-
-                  //  try {
-                  //  _dio.options.contentType = Headers.jsonContentType;
-                  //  final Response response =
-                  //  await
-                  _dio.post(url, data: data);
-
-                  //  return response.data;
-                  // } catch (e) {
-                  //   final errorMessage =
-                  //       DioExceptions.fromDioError(e as DioError).toString();
-                  //   debugPrint(errorMessage);
-                  // }
-                  // }
-
-                  Navigator.of(context).pushNamed(DriverScreen.routeName);
-                } else {
-                  Navigator.of(context).pushNamed(PassengerScreen.routeName);
-                }
-              });
-            },
-            iconBuilder: (value) => value
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(28),
-                    child: Image.asset(
-                      "assets/images/driver.jpg",
-                    ),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(28),
-                    child: Image.asset("assets/images/passenger.jpg")),
-            textBuilder: (value) => value
-                ? const Center(
-                    child: Text(
-                      "Driver's Mode",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                : const Center(
-                    child: Text(
-                      "Passenger's Mode",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedToggleSwitch<bool>.dual(
+                current: positive,
+                first: false,
+                second: true,
+                dif: 121.0,
+                borderColor: Colors.transparent,
+                borderWidth: 5.0,
+                height: 55,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: Offset(0, 1.5),
                   ),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                try {
-                  var response =
-                      await Dio().get('http://192.168.10.72:8000/location/7');
-                  var parsedResponse = {
-                    "id": response.data['id'],
-                    "latitude": response.data['lat'],
-                    "longitude": response.data['lon'],
-                  };
+                ],
+                onChanged: (b) {
+                  setState(() {
+                    positive = b;
+                    sharedPreferences.setBool('user-mode', positive);
+                    if (positive == true) {
+                      double lat = currentLocation.latitude;
+                      double lon = currentLocation.longitude;
 
-                  print(parsedResponse);
-                } catch (e) {
-                  print(e);
-                }
-              },
-              child: Container()),
+                      String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+
+                      String url = "http://192.168.10.69:8000/location/create";
+
+                      url = Uri.parse(url).toString();
+
+                      _dio.post(url, data: data);
+
+                      Navigator.of(context).pushNamed(DriverScreen.routeName);
+                    } else {
+                      Navigator.of(context)
+                          .pushNamed(PassengerScreen.routeName);
+                    }
+                  });
+                },
+                iconBuilder: (value) => value
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(28),
+                        child: Image.asset(
+                          "assets/images/driver.jpg",
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(28),
+                        child: Image.asset("assets/images/passenger.jpg")),
+                textBuilder: (value) => value
+                    ? const Center(
+                        child: Text(
+                          "Driver's Mode",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : const Center(
+                        child: Text(
+                          "Passenger's Mode",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+              ),
+            ),
+          ),
+          // ElevatedButton(
+          //     onPressed: () async {
+          //       var response =
+          //           await Dio().get('http://127.0.0.1:8000/location/7');
+          //       var parsedResponse = {
+          //         "id": response.data['id'],
+          //         "latitude": response.data['lat'],
+          //         "longitude": response.data['lon'],
+          //       };
+          //       print(parsedResponse);
+          //     },
+          //     child: Container())
         ],
       ),
     );

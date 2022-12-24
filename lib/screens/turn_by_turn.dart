@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import '../screens/prepare_ride.dart';
 import '../helpers/shared_prefs.dart';
-import '../ui/rate_ride.dart';
 
 class TurnByTurn extends StatefulWidget {
   const TurnByTurn({Key? key}) : super(key: key);
@@ -42,14 +42,15 @@ class _TurnByTurnState extends State<TurnByTurn> {
     // Setup directions and options
     directions = MapBoxNavigation(onRouteEvent: _onRouteEvent);
     _options = MapBoxOptions(
-        zoom: 18.0,
-        voiceInstructionsEnabled: true,
-        bannerInstructionsEnabled: true,
-        mode: MapBoxNavigationMode.drivingWithTraffic,
-        isOptimized: true,
-        units: VoiceUnits.metric,
-        simulateRoute: true,
-        language: "en");
+      zoom: 18.0,
+      voiceInstructionsEnabled: true,
+      bannerInstructionsEnabled: true,
+      mode: MapBoxNavigationMode.drivingWithTraffic,
+      isOptimized: true,
+      units: VoiceUnits.metric,
+      simulateRoute: true,
+      language: "en",
+    );
 
     // Configure waypoints
     sourceWaypoint = WayPoint(
@@ -63,11 +64,6 @@ class _TurnByTurnState extends State<TurnByTurn> {
 
     // Start the trip
     await directions.startNavigation(wayPoints: wayPoints, options: _options);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const RateRide();
   }
 
   Future<void> _onRouteEvent(e) async {
@@ -109,5 +105,10 @@ class _TurnByTurnState extends State<TurnByTurn> {
     }
     //refresh UI
     setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const PrepareRide();
   }
 }

@@ -30,15 +30,14 @@ class DriverLocation with ChangeNotifier {
   }
 
   void addLocation() async {
-    var response = await Dio().get('http://192.168.10.72:8000/location/7/');
-    // var parsedRespose = {
-    //   "id": response.data['id'],
-    //   "latitude": response.data['lat'],
-    //   "longitude": response.data['lon'],
-    // };
-    // print(parsedRespose['id']);
-
-    // _locations.add(response);
+    var response = await Dio().get('http://192.168.10.69:8000/location/12');
+    var parsedResponse = {
+      "id": response.data['id'],
+      "latitude": response.data['lat'],
+      "longitude": response.data['lon'],
+    };
+    _locations.add(parsedResponse);
+    print(parsedResponse);
 
     notifyListeners();
   }

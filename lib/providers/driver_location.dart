@@ -37,7 +37,7 @@ class DriverLocation with ChangeNotifier {
       "longitude": response.data['lon'],
     };
     _locations.add(parsedResponse);
-    print(parsedResponse);
+    // print(parsedResponse);
 
     notifyListeners();
   }

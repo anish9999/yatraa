@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yatraa/providers/bus_stop_location.dart';
 import 'package:yatraa/providers/driver_location.dart';
+import 'package:yatraa/screens/driver_form_screen.dart';
 import 'package:yatraa/screens/driver_screen.dart';
 import 'package:yatraa/screens/login_screen.dart';
 import 'package:yatraa/screens/otp_verification_screen.dart';
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
                 OtpVerificationScreen(),
             LoginScreen.routeName: (context) => const LoginScreen(),
             RateDriverScreen.routeName: (context) => const RateDriverScreen(),
+            DriverFormScreen.routeName: (context) => const DriverFormScreen(),
           },
         ),
       ),

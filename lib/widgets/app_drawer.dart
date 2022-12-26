@@ -2,6 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:yatraa/screens/driver_form_screen.dart';
 
 import '../helpers/shared_prefs.dart';
 import '../main.dart';
@@ -68,78 +69,79 @@ class _AppDrawerState extends State<AppDrawer> {
             height: 170,
             child: buildDrawerHeader(),
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: AnimatedToggleSwitch<bool>.dual(
-                current: positive,
-                first: false,
-                second: true,
-                dif: 121.0,
-                borderColor: Colors.transparent,
-                borderWidth: 5.0,
-                height: 55,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: Offset(0, 1.5),
-                  ),
-                ],
-                onChanged: (b) {
-                  setState(() {
-                    positive = b;
-                    sharedPreferences.setBool('user-mode', positive);
-                    if (positive == true) {
-                      double lat = currentLocation.latitude;
-                      double lon = currentLocation.longitude;
 
-                      String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-
-                      String url = "http://192.168.10.69:8000/location/create";
-
-                      url = Uri.parse(url).toString();
-
-                      _dio.post(url, data: data);
-
-                      Navigator.of(context).pushNamed(DriverScreen.routeName);
-                    } else {
-                      Navigator.of(context)
-                          .pushNamed(PassengerScreen.routeName);
-                    }
-                  });
-                },
-                iconBuilder: (value) => value
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(28),
-                        child: Image.asset(
-                          "assets/images/driver.jpg",
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(28),
-                        child: Image.asset("assets/images/passenger.jpg")),
-                textBuilder: (value) => value
-                    ? const Center(
-                        child: Text(
-                          "Driver's Mode",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    : const Center(
-                        child: Text(
-                          "Passenger's Mode",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+          AnimatedToggleSwitch<bool>.dual(
+            current: positive,
+            first: false,
+            second: true,
+            dif: 121.0,
+            borderColor: Colors.transparent,
+            borderWidth: 5.0,
+            height: 55,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 1.5),
               ),
-            ),
+            ],
+            onChanged: (b) {
+              setState(() {
+                positive = b;
+                sharedPreferences.setBool('user-mode', positive);
+                if (positive == true) {
+                  double lat = currentLocation.latitude;
+                  double lon = currentLocation.longitude;
+
+                  String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+
+                  String url = "http://192.168.10.69:8000/location/create";
+
+                  url = Uri.parse(url).toString();
+
+                  _dio.post(url, data: data);
+
+                  // Navigator.of(context).pushNamed(DriverScreen.routeName);
+                  Navigator.of(context).pushNamed(DriverFormScreen.routeName);
+                } else {
+                  Navigator.of(context).pushNamed(PassengerScreen.routeName);
+                }
+              });
+            },
+            iconBuilder: (value) => value
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(28),
+                    child: Image.asset(
+                      "assets/images/driver.jpg",
+                    ),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(28),
+                    child: Image.asset("assets/images/passenger.jpg")),
+            textBuilder: (value) => value
+                ? const Center(
+                    child: Text(
+                      "Driver's Mode",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                : const Center(
+                    child: Text(
+                      "Passenger's Mode",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
           ),
+          TextButton(
+            onPressed: () {},
+            child: const Text("Sign Out"),
+          ),
+
           // ElevatedButton(
           //     onPressed: () async {
           //       var response =

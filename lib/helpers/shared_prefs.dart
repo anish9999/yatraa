@@ -4,9 +4,29 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../main.dart';
 
-// int getSymbolId() {
-//   return sharedPreferences.getInt("symbolId")!;
+String getDriverName() {
+  return sharedPreferences.getString("driver-name")!;
+}
+
+String getVehicleNumber() {
+  return sharedPreferences.getString("vehicle-number")!;
+}
+
+String getLiscenseNumber() {
+  return sharedPreferences.getString("liscense-number")!;
+}
+
+// String getBlueBookImage() {
+//   return sharedPreferences.getString("bluebook-image")!;
 // }
+
+// String getLiscenseImage() {
+//   return sharedPreferences.getString("liscense-image")!;
+// }
+
+bool isFormSubmitted() {
+  return sharedPreferences.getBool("form-submitted")!;
+}
 
 bool getFirstCall() {
   return sharedPreferences.getBool("first-call")!;

@@ -23,7 +23,6 @@ class _AppDrawerState extends State<AppDrawer> {
   final Dio _dio = Dio();
 
   Widget buildDrawerHeader() {
-    // print(currentLocation);
     return DrawerHeader(
       child: Row(
         children: [
@@ -102,7 +101,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                   _dio.post(url, data: data);
 
-                  // Navigator.of(context).pushNamed(DriverScreen.routeName);
+                  // Navigator.of(context).pushNamed(DriverScreen.routeName)
                   Navigator.of(context).pushNamed(DriverFormScreen.routeName);
                 } else {
                   Navigator.of(context).pushNamed(PassengerScreen.routeName);
@@ -137,6 +136,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                   ),
           ),
+          const Divider(),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(DriverFormScreen.routeName);
+            },
+            child: const Text("Edit Form"),
+          ),
+          const Divider(),
           TextButton(
             onPressed: () {},
             child: const Text("Sign Out"),

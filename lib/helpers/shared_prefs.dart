@@ -1,42 +1,28 @@
 import 'dart:convert';
-
 import 'package:mapbox_gl/mapbox_gl.dart';
-
 import '../main.dart';
 
-String getDriverName() {
-  return sharedPreferences.getString("driver-name")!;
+List<String> getDriverInformation() {
+  return sharedPreferences.getStringList("driver-information")!;
 }
-
-String getVehicleNumber() {
-  return sharedPreferences.getString("vehicle-number")!;
-}
-
-String getLiscenseNumber() {
-  return sharedPreferences.getString("liscense-number")!;
-}
-
-// String getBlueBookImage() {
-//   return sharedPreferences.getString("bluebook-image")!;
-// }
-
-// String getLiscenseImage() {
-//   return sharedPreferences.getString("liscense-image")!;
-// }
 
 bool isFormSubmitted() {
   return sharedPreferences.getBool("form-submitted")!;
 }
 
-bool getFirstCall() {
-  return sharedPreferences.getBool("first-call")!;
+bool getFirstRun() {
+  return sharedPreferences.getBool("first-run")!;
 }
 
 bool getCurrentUserMode() {
-  if (sharedPreferences.getBool("first-call") == true) {
+  if (sharedPreferences.getBool("first-run") == true) {
     return false;
   } else {
-    return sharedPreferences.getBool('user-mode')!;
+    if (sharedPreferences.getBool('user-mode') == null) {
+      return false;
+    } else {
+      return sharedPreferences.getBool('user-mode')!;
+    }
   }
 }
 

@@ -1,9 +1,10 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:yatraa/screens/driver_form_screen.dart';
 
+import '../screens/driver_form_screen.dart';
 import '../helpers/shared_prefs.dart';
 import '../main.dart';
 import '../screens/driver_screen.dart';
@@ -17,9 +18,8 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  bool positive = getCurrentUserMode();
+  bool isDriverMode = getCurrentUserMode();
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
-
   final Dio _dio = Dio();
 
   Widget buildDrawerHeader() {
@@ -27,7 +27,7 @@ class _AppDrawerState extends State<AppDrawer> {
       child: Row(
         children: [
           CircleAvatar(
-              backgroundImage: positive == true
+              backgroundImage: isDriverMode == true
                   ? const AssetImage("assets/images/driver.jpg")
                   : const AssetImage("assets/images/passenger.jpg"),
               radius: 44),
@@ -44,7 +44,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
                 Text(
-                  positive == true ? "driver" : "passenger",
+                  isDriverMode == true ? "driver" : "passenger",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
@@ -70,7 +70,7 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
 
           AnimatedToggleSwitch<bool>.dual(
-            current: positive,
+            current: isDriverMode,
             first: false,
             second: true,
             dif: 121.0,
@@ -87,22 +87,19 @@ class _AppDrawerState extends State<AppDrawer> {
             ],
             onChanged: (b) {
               setState(() {
-                positive = b;
-                sharedPreferences.setBool('user-mode', positive);
-                if (positive == true) {
+                isDriverMode = b;
+                sharedPreferences.setBool('user-mode', isDriverMode);
+                if (isDriverMode == true) {
                   double lat = currentLocation.latitude;
                   double lon = currentLocation.longitude;
-
                   String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-
-                  String url = "http://192.168.10.69:8000/location/create";
-
+                  String url = "$serverUrl/location/create";
                   url = Uri.parse(url).toString();
-
                   _dio.post(url, data: data);
-
-                  // Navigator.of(context).pushNamed(DriverScreen.routeName)
-                  Navigator.of(context).pushNamed(DriverFormScreen.routeName);
+                  sharedPreferences.getStringList("driver-information") == null
+                      ? Navigator.of(context)
+                          .pushNamed(DriverFormScreen.routeName)
+                      : Navigator.of(context).pushNamed(DriverScreen.routeName);
                 } else {
                   Navigator.of(context).pushNamed(PassengerScreen.routeName);
                 }

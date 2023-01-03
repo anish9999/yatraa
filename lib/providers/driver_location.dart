@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 
 class DriverLocation with ChangeNotifier {
   final List<Map> _locations = [
@@ -30,7 +31,7 @@ class DriverLocation with ChangeNotifier {
   }
 
   void addLocation() async {
-    var response = await Dio().get('http://192.168.10.69:8000/location/12');
+    var response = await Dio().get('$serverUrl/location/14');
     var parsedResponse = {
       "id": response.data['id'],
       "latitude": response.data['lat'],

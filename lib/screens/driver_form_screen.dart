@@ -36,19 +36,12 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
         _pickedLiscenseImage == null) {
       return;
     } else {
-      editedInformation.bluebookImage = _pickedBlueBookImage;
-      editedInformation.liscenseImage = _pickedLiscenseImage;
       _form.currentState!.save();
-      sharedPreferences.setString("driver-name", editedInformation.name!);
-      sharedPreferences.setString(
-          "vehicle-number", editedInformation.vehicleNumber!);
-      sharedPreferences.setString(
-          "liscense-number", editedInformation.liscenseNumber!);
-      sharedPreferences.setBool("form-submitted", true);
-      // sharedPreferences.setString(
-      //     "bluebook-image", editedInformation.bluebookImage.toString());
-      // sharedPreferences.setString(
-      //     "liscense-image", editedInformation.liscenseImage.toString());
+      sharedPreferences.setStringList("driver-information", [
+        editedInformation.name!,
+        editedInformation.vehicleNumber!,
+        editedInformation.liscenseNumber!,
+      ]);
       Navigator.of(context).pushNamed(DriverScreen.routeName);
     }
   }
@@ -66,7 +59,9 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                initialValue: sharedPreferences.getString("driver-name"),
+                initialValue: sharedPreferences
+                    .getStringList("driver-information")
+                    ?.elementAt(0),
                 decoration: const InputDecoration(labelText: "Name"),
                 textInputAction: TextInputAction.next,
                 validator: (value) {
@@ -80,7 +75,9 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
                 },
               ),
               TextFormField(
-                initialValue: sharedPreferences.getString("vehicle-number"),
+                initialValue: sharedPreferences
+                    .getStringList("driver-information")
+                    ?.elementAt(1),
                 decoration: const InputDecoration(labelText: "Vehicle Number"),
                 textInputAction: TextInputAction.next,
                 validator: (value) {
@@ -94,7 +91,9 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
                 },
               ),
               TextFormField(
-                initialValue: sharedPreferences.getString("liscense-number"),
+                initialValue: sharedPreferences
+                    .getStringList("driver-information")
+                    ?.elementAt(2),
                 decoration: const InputDecoration(labelText: "Liscense Number"),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
@@ -111,11 +110,13 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
               const SizedBox(
                 height: 17,
               ),
-              ImageInput(isBlueBook, _selectBlueBookImage),
+              ImageInput(
+                  isBlueBook, _selectBlueBookImage, _pickedBlueBookImage),
               const SizedBox(
                 height: 17,
               ),
-              ImageInput(!isBlueBook, _selectLiscenseImage),
+              ImageInput(
+                  !isBlueBook, _selectLiscenseImage, _pickedLiscenseImage),
               const SizedBox(
                 height: 17,
               ),

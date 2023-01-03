@@ -25,7 +25,7 @@ class _SplashState extends State<Splash> {
   void initializeLocationAndSave() async {
     bool firstRun = await IsFirstRun.isFirstRun();
     //First time running the app
-    bool firstCall = await IsFirstRun.isFirstCall();
+    // bool firstCall = await IsFirstRun.isFirstCall();
 
     // Ensure all permissions are collected for Locations
     Location location = Location();
@@ -55,7 +55,7 @@ class _SplashState extends State<Splash> {
     sharedPreferences.setDouble('latitude', locationData.latitude!);
     sharedPreferences.setDouble('longitude', locationData.longitude!);
     sharedPreferences.setString('current-address', currentAddress);
-    sharedPreferences.setBool("first-call", firstCall);
+    sharedPreferences.setBool("first-run", firstRun);
 
     firstRun
         // ignore: use_build_context_synchronously

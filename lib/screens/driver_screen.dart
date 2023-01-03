@@ -21,16 +21,13 @@ class _DriverScreenState extends State<DriverScreen> {
   late String currentAddress;
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
-  bool positive = getCurrentUserMode();
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     //Set initial camera position and current address
-
     _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
     currentAddress = getCurrentAddressFromSharedPrefs();
-
     super.initState();
   }
 
@@ -87,8 +84,7 @@ class _DriverScreenState extends State<DriverScreen> {
         children: [
           MapboxMap(
             initialCameraPosition: _initialCameraPosition,
-            accessToken:
-              MAPBOX_ACCESS_TOKEN,
+            accessToken: MAPBOX_ACCESS_TOKEN,
             compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
             onMapCreated: _onMapCreated,

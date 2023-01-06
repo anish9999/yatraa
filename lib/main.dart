@@ -22,7 +22,7 @@ import 'UI/splash.dart';
 late SharedPreferences sharedPreferences;
 const String MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1IjoicnVzdHUtbmV1cGFuZSIsImEiOiJjbGFnN3N4emgxY2VzM29ydHlhc2ozbW41In0.HterCgrAMUExckM18JX8ig";
-const String serverUrl = "http://192.168.101.78:8000";
+const String serverUrl = "http://192.168.10.71:8000";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //for splash screen
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
             Home.routeName: (context) => const Home(),
             PrepareRide.routeName: (context) => const PrepareRide(),
             // ReviewRide.routeName: (context) => ReviewRide(),
-            TurnByTurn.routeName: (context) => const TurnByTurn(),
+            // TurnByTurn.routeName: (context) => const TurnByTurn(),
             DriverScreen.routeName: (context) => const DriverScreen(),
             PassengerScreen.routeName: (context) => const PassengerScreen(),
             OtpVerificationScreen.routeName: (context) =>

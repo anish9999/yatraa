@@ -5,7 +5,10 @@ import '../screens/prepare_ride.dart';
 import '../helpers/shared_prefs.dart';
 
 class TurnByTurn extends StatefulWidget {
-  const TurnByTurn({Key? key}) : super(key: key);
+  final LatLng sourceLatLng;
+  final LatLng destLatLng;
+  const TurnByTurn(
+      {super.key, required this.sourceLatLng, required this.destLatLng});
   static const routeName = "/turn-by-turn";
 
   @override
@@ -14,8 +17,6 @@ class TurnByTurn extends StatefulWidget {
 
 class _TurnByTurnState extends State<TurnByTurn> {
   // Waypoints to mark trip start and end
-  LatLng source = getTripLatLngFromSharedPrefs('source');
-  LatLng destination = getTripLatLngFromSharedPrefs('destination');
   late WayPoint sourceWaypoint, destinationWaypoint;
   var wayPoints = <WayPoint>[];
 
@@ -54,11 +55,13 @@ class _TurnByTurnState extends State<TurnByTurn> {
 
     // Configure waypoints
     sourceWaypoint = WayPoint(
-        name: "Source", latitude: source.latitude, longitude: source.longitude);
+        name: "Source",
+        latitude: widget.sourceLatLng.latitude,
+        longitude: widget.sourceLatLng.longitude);
     destinationWaypoint = WayPoint(
         name: "Destination",
-        latitude: destination.latitude,
-        longitude: destination.longitude);
+        latitude: widget.destLatLng.latitude,
+        longitude: widget.destLatLng.longitude);
     wayPoints.add(sourceWaypoint);
     wayPoints.add(destinationWaypoint);
 

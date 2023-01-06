@@ -9,7 +9,8 @@ import 'package:path_provider/path_provider.dart' as syspath;
 class ImageInput extends StatefulWidget {
   bool isBlueBook;
   final Function selectImage;
-  final File? pickedImage;
+  File? pickedImage;
+
   ImageInput(this.isBlueBook, this.selectImage, this.pickedImage, {super.key});
 
   @override
@@ -53,21 +54,21 @@ class _ImageInputState extends State<ImageInput> {
               ),
             ),
             alignment: Alignment.center,
-            child: _storedImage != null
+            child: widget.pickedImage != null
                 ? Image.file(
-                    _storedImage!,
+                    widget.pickedImage!,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   )
-                : widget.pickedImage == null
-                    ? const Text(
-                        "No image taken",
-                        textAlign: TextAlign.center,
-                      )
-                    : Image.file(
-                        widget.pickedImage!,
+                : _storedImage != null
+                    ? Image.file(
+                        _storedImage!,
                         fit: BoxFit.cover,
                         width: double.infinity,
+                      )
+                    : const Text(
+                        "No image taken",
+                        textAlign: TextAlign.center,
                       ),
           ),
         ),

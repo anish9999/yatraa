@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:yatraa/main.dart';
 
+import '../main.dart';
 import '../screens/driver_screen.dart';
 import '../model/driver_information.dart';
 import '../widgets/image_input.dart';
@@ -37,11 +37,14 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
       return;
     } else {
       _form.currentState!.save();
+
       sharedPreferences.setStringList("driver-information", [
         editedInformation.name!,
         editedInformation.vehicleNumber!,
         editedInformation.liscenseNumber!,
       ]);
+      sharedPreferences.setString("bluebookImage", _pickedBlueBookImage!.path);
+      sharedPreferences.setString("liscenseImage", _pickedLiscenseImage!.path);
       Navigator.of(context).pushNamed(DriverScreen.routeName);
     }
   }
@@ -111,12 +114,22 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
                 height: 17,
               ),
               ImageInput(
-                  isBlueBook, _selectBlueBookImage, _pickedBlueBookImage),
+                isBlueBook,
+                _selectBlueBookImage,
+                sharedPreferences.getString("bluebookImage") == null
+                    ? null
+                    : File(sharedPreferences.getString("bluebookImage")!),
+              ),
               const SizedBox(
                 height: 17,
               ),
               ImageInput(
-                  !isBlueBook, _selectLiscenseImage, _pickedLiscenseImage),
+                !isBlueBook,
+                _selectLiscenseImage,
+                sharedPreferences.getString("liscenseImage") == null
+                    ? null
+                    : File(sharedPreferences.getString("liscenseImage")!),
+              ),
               const SizedBox(
                 height: 17,
               ),

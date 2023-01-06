@@ -6,6 +6,14 @@ List<String> getDriverInformation() {
   return sharedPreferences.getStringList("driver-information")!;
 }
 
+String getBluebookImage() {
+  return sharedPreferences.getString("bluebookImage")!;
+}
+
+String getLiscenseImage() {
+  return sharedPreferences.getString("liscenseImage")!;
+}
+
 bool isFormSubmitted() {
   return sharedPreferences.getBool("form-submitted")!;
 }

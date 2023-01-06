@@ -125,7 +125,6 @@ class _ReviewRideState extends State<ReviewJourney> {
                 onMapCreated: _onMapCreated,
                 onStyleLoadedCallback: _onStyleLoadedCallback,
                 myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
-                // minMaxZoomPreference: const MinMaxZoomPreference(11, 11),
               ),
             ),
             Positioned(
@@ -168,8 +167,13 @@ class _ReviewRideState extends State<ReviewJourney> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(TurnByTurn.routeName);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => TurnByTurn(
+                                        sourceLatLng: widget.sourceLatLng,
+                                        destLatLng: widget.destLatLng),
+                                  ));
                             },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.all(20)),

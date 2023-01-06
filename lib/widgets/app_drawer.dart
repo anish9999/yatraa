@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:is_first_run/is_first_run.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../screens/driver_form_screen.dart';
@@ -21,6 +22,9 @@ class _AppDrawerState extends State<AppDrawer> {
   bool isDriverMode = getCurrentUserMode();
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
   final Dio _dio = Dio();
+  // ignore: prefer_typing_uninitialized_variables
+  Timer? timer;
+  String url = "$serverUrl/location/create";
 
   Widget buildDrawerHeader() {
     return DrawerHeader(
@@ -93,9 +97,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   double lat = currentLocation.latitude;
                   double lon = currentLocation.longitude;
                   String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-                  String url = "$serverUrl/location/create";
-                  url = Uri.parse(url).toString();
-                  _dio.post(url, data: data);
+                  timer = Timer.periodic(
+                      const Duration(seconds: 5),
+                      (Timer t) =>
+                          _dio.post(Uri.parse(url).toString(), data: data));
                   sharedPreferences.getStringList("driver-information") == null
                       ? Navigator.of(context)
                           .pushNamed(DriverFormScreen.routeName)

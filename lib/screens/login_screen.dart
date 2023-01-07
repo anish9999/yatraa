@@ -1,4 +1,3 @@
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/otp_verification_screen.dart';
@@ -116,10 +115,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   verificationFailed: (FirebaseAuthException e) {},
                     //   codeSent: (String verificationId, int? resendToken) {
                     //     LoginScreen.verify = verificationId;
-                        Navigator.of(context)
-                            .pushNamed(OtpVerificationScreen.routeName);
-                      //},
-                     // codeAutoRetrievalTimeout: (String verificationId) {},
+                    Navigator.of(context)
+                        .pushNamed(OtpVerificationScreen.routeName);
+                    //},
+                    // codeAutoRetrievalTimeout: (String verificationId) {},
                     //);
                   },
                   child: const Text('Send the OTP'),

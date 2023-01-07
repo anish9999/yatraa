@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mapbox_navigation/library.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+
 import '../screens/prepare_ride.dart';
-import '../helpers/shared_prefs.dart';
 
 class TurnByTurn extends StatefulWidget {
   final LatLng sourceLatLng;

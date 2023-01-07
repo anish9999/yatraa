@@ -54,15 +54,15 @@ class _ImageInputState extends State<ImageInput> {
               ),
             ),
             alignment: Alignment.center,
-            child: widget.pickedImage != null
+            child: _storedImage != null
                 ? Image.file(
-                    widget.pickedImage!,
+                    _storedImage!,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   )
-                : _storedImage != null
+                : widget.pickedImage != null
                     ? Image.file(
-                        _storedImage!,
+                        widget.pickedImage!,
                         fit: BoxFit.cover,
                         width: double.infinity,
                       )

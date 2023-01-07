@@ -1,13 +1,12 @@
 //access token is required
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 import 'package:yatraa/providers/driver_location.dart';
+
 import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
-
 import '../helpers/commons.dart';
 import '../main.dart';
 import '../providers/bus_stop_location.dart';
@@ -83,8 +82,13 @@ class _ReviewRideState extends State<ReviewRide> {
         ),
       );
     }
+
     // controller.onSymbolTapped.add(_onSymbolTapped);
   }
+
+  // void _onSymbolTapped(Symbol symbol) {
+  //   print("$symbol tapped");
+  // }
 
   @override
   Widget build(BuildContext context) {

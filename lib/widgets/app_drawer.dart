@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ import '../screens/passenger_screen.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
-
   @override
   State<AppDrawer> createState() => _AppDrawerState();
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
-import 'package:yatraa/widgets/journey_review_bottom_sheet.dart';
 
+import '../widgets/journey_review_bottom_sheet.dart';
 import '../helpers/commons.dart';
 import '../providers/bus_stop_location.dart';
 import '../main.dart';
@@ -14,9 +14,7 @@ import '../helpers/shared_prefs.dart';
 
 class PassengerScreen extends StatefulWidget {
   static const routeName = '/passenger-screen';
-
   const PassengerScreen({super.key});
-
   @override
   State<PassengerScreen> createState() => _PassengerScreenState();
 }
@@ -74,7 +72,6 @@ class _PassengerScreenState extends State<PassengerScreen> {
         await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
     distance = (modifiedResponse['distance'] / 1000).toStringAsFixed(1);
     dropOffTime = getDropOffTime(modifiedResponse['duration']);
-    //  geometry = modifiedResponse['geometry'];
 
     showModalBottomSheet(
         context: context,
@@ -153,8 +150,6 @@ class _PassengerScreenState extends State<PassengerScreen> {
       drawer: const AppDrawer(),
       body: Stack(
         children: [
-          // Add MapboxMap here and enable user location
-
           MapboxMap(
             initialCameraPosition: _initialCameraPosition,
             accessToken: MAPBOX_ACCESS_TOKEN,
@@ -164,12 +159,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
             onMapCreated: _onMapCreated,
             onStyleLoadedCallback: _onStyleLoadedCallback,
           ),
-
-          //Hamburger Menu
           hamburgerMenu(scaffoldKey),
-
           buildPassengerScreenBottom(),
-
           Positioned(
             right: 5,
             bottom: 200,

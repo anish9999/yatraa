@@ -4,7 +4,6 @@ import 'package:yatraa/UI/rate_ride.dart';
 class RateDriverScreen extends StatefulWidget {
   static const routeName = '/rate-driver-screen';
   const RateDriverScreen({super.key});
-
   @override
   State<RateDriverScreen> createState() => _RateDriverScreenState();
 }

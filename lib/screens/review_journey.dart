@@ -42,7 +42,6 @@ class _ReviewRideState extends State<ReviewJourney> {
   void initState() {
     // initialise distance, dropOffTime, geometry
     _initialiseDirectionsResponse();
-
     // initialise initialCameraPosition, address and trip end points
     _initialCameraPosition = CameraPosition(
       target: getCenterCoordinatesForPolyline(geometry),
@@ -63,12 +62,12 @@ class _ReviewRideState extends State<ReviewJourney> {
 
   _onStyleLoadedCallback() async {
     for (int i = 0; i < _kTripEndPoints.length; i++) {
-      // String iconImage = i == 0 ? 'circle' : 'square';
+      String iconImage = i == 0 ? 'circle' : 'square';
       await controller.addSymbol(
         SymbolOptions(
           geometry: _kTripEndPoints[i].target,
           iconSize: 0.1,
-          //  iconImage: "assets/icon/$iconImage.png",
+          iconImage: "assets/icon/$iconImage.png",
         ),
       );
     }

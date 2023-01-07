@@ -1,5 +1,3 @@
-//Exceptions created when linking with web is placed here
-
 import 'package:dio/dio.dart';
 
 class DioExceptions implements Exception {

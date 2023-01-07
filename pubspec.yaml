@@ -1,10 +1,7 @@
 name: yatraa
 description: A new Flutter project.
-
 publish_to: "none"
-
 version: 1.0.0+1
-
 environment:
   sdk: ">=2.18.4 <3.0.0"
 
@@ -33,7 +30,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.10.0
-
   flutter_lints: ^2.0.0
 
 flutter_icons:
@@ -47,7 +43,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/config/
     - assets/images/login_page_img.png
     - assets/images/Nepal_flag.png
     - assets/images/logo_.png
@@ -55,7 +50,6 @@ flutter:
     - assets/images/passenger.jpg
     - assets/icon/
     - assets/images/marker.png
-    - assets/images/p_marker.png
     - assets/images/bus.png
     - assets/images/bus-stop.png
     - assets/images/bluebook.jpg

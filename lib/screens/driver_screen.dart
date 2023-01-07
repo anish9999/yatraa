@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-import 'package:yatraa/widgets/app_drawer.dart';
-import 'package:yatraa/widgets/hamburger_menu.dart';
-
+import '../widgets/app_drawer.dart';
+import '../widgets/hamburger_menu.dart';
 import '../helpers/shared_prefs.dart';
 import '../main.dart';
 
 class DriverScreen extends StatefulWidget {
   static const routeName = "/driver-screen";
-
   const DriverScreen({super.key});
-
   @override
   State<DriverScreen> createState() => _DriverScreenState();
 }
@@ -22,7 +19,6 @@ class _DriverScreenState extends State<DriverScreen> {
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     //Set initial camera position and current address

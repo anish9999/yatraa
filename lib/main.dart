@@ -3,20 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yatraa/providers/bus_stop_location.dart';
-import 'package:yatraa/providers/driver_location.dart';
-import 'package:yatraa/screens/driver_form_screen.dart';
-import 'package:yatraa/screens/driver_screen.dart';
-import 'package:yatraa/screens/login_screen.dart';
-import 'package:yatraa/screens/otp_verification_screen.dart';
-import 'package:yatraa/screens/passenger_screen.dart';
-import 'package:yatraa/screens/rate_driver_screen.dart';
 
+import '../providers/bus_stop_location.dart';
+import '../providers/driver_location.dart';
+import '../screens/driver_form_screen.dart';
+import '../screens/driver_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/otp_verification_screen.dart';
+import '../screens/passenger_screen.dart';
+import '../screens/rate_driver_screen.dart';
 import '../screens/home.dart';
 import '../screens/prepare_ride.dart';
-
-import '../screens/turn_by_turn.dart';
-
 import 'UI/splash.dart';
 
 late SharedPreferences sharedPreferences;
@@ -28,13 +25,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //for splash screen
   sharedPreferences = await SharedPreferences
       .getInstance(); //Using shared preference for storage of current user location
-
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -61,13 +56,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          //initialRoute: LoginScreen.routeName,
           routes: {
             "/": (context) => const Splash(),
             Home.routeName: (context) => const Home(),
             PrepareRide.routeName: (context) => const PrepareRide(),
-            // ReviewRide.routeName: (context) => ReviewRide(),
-            // TurnByTurn.routeName: (context) => const TurnByTurn(),
             DriverScreen.routeName: (context) => const DriverScreen(),
             PassengerScreen.routeName: (context) => const PassengerScreen(),
             OtpVerificationScreen.routeName: (context) =>

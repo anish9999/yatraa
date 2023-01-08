@@ -1,7 +1,7 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:pinput/pinput.dart';
+
 import '../screens/home.dart';
 import '../screens/login_screen.dart';
 
@@ -9,33 +9,6 @@ import '../screens/login_screen.dart';
 class OtpVerificationScreen extends StatelessWidget {
   static const routeName = '/Otp-verification-screen';
   var code = "";
-
-  /// Determine the current position of the device..
-  // Future<Position> _determinePosition() async {
-  //   bool serviceEnabled;
-  //   LocationPermission permission;
-
-  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     return Future.error('Location services are disabled.');
-  //   }
-
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       return Future.error('Location permissions are denied');
-  //     }
-  //   }
-
-  //   if (permission == LocationPermission.deniedForever) {
-  //     return Future.error(
-  //         'Location permissions are permanently denied, we cannot request permissions.');
-  //   }
-
-  //   return await Geolocator.getCurrentPosition();
-  // }
-
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
@@ -50,9 +23,7 @@ class OtpVerificationScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
     ),
   );
-
   OtpVerificationScreen({super.key});
-
   void loginScreen(BuildContext context) {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(LoginScreen.routeName, ((route) => false));
@@ -60,7 +31,7 @@ class OtpVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -124,19 +95,13 @@ class OtpVerificationScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      // PhoneAuthCredential credential =
-                      //     PhoneAuthProvider.credential(
-                      //         verificationId: LoginScreen.verify,
-                      //         smsCode: code);
-
-                      // Sign the user in (or link) with the credential
-
-                      //  await auth.signInWithCredential(credential);
-                      //for current location
-                      //  Position position = await _determinePosition();
-
+                      PhoneAuthCredential credential =
+                          PhoneAuthProvider.credential(
+                              verificationId: LoginScreen.verify,
+                              smsCode: code);
+                      await auth.signInWithCredential(credential);
+                      // ignore: use_build_context_synchronously
                       Navigator.of(context).pushNamed(Home.routeName);
-                      // arguments: position);
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         duration: Duration(seconds: 4),

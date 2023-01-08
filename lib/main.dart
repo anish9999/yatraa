@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ const String serverUrl = "http://192.168.10.71:8000";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //for splash screen
+  await Firebase.initializeApp();
   sharedPreferences = await SharedPreferences
       .getInstance(); //Using shared preference for storage of current user location
   runApp(const MyApp());

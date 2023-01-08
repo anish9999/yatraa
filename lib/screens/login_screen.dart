@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/otp_verification_screen.dart';
@@ -108,18 +109,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    // await FirebaseAuth.instance.verifyPhoneNumber(
-                    //   phoneNumber: countryCode + phoneNumber.text,
-                    //   verificationCompleted:
-                    //       (PhoneAuthCredential credential) {},
-                    //   verificationFailed: (FirebaseAuthException e) {},
-                    //   codeSent: (String verificationId, int? resendToken) {
-                    //     LoginScreen.verify = verificationId;
-                    Navigator.of(context)
-                        .pushNamed(OtpVerificationScreen.routeName);
-                    //},
-                    // codeAutoRetrievalTimeout: (String verificationId) {},
-                    //);
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: countryCode + phoneNumber.text,
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
+                      verificationFailed: (FirebaseAuthException e) {},
+                      codeSent: (String verificationId, int? resendToken) {
+                        LoginScreen.verify = verificationId;
+                        Navigator.of(context)
+                            .pushNamed(OtpVerificationScreen.routeName);
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                    );
                   },
                   child: const Text('Send the OTP'),
                 ),

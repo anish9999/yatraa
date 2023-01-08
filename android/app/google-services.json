@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566183163405",
+    "project_id": "yatraa-39799",
+    "storage_bucket": "yatraa-39799.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566183163405:android:7574cd3b39aa7f0b454744",
+        "android_client_info": {
+          "package_name": "com.example.yatraa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566183163405-uf9b2lkt2f7dc95dgggfgk631rfqbk24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9e_0NrznNOFfix-zfRg94Ox5052NMqpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566183163405-uf9b2lkt2f7dc95dgggfgk631rfqbk24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yatraa/screens/rate_driver_screen.dart';
+import 'package:yatraa/screens/passenger_screen.dart';
+// import 'package:yatraa/screens/rate_driver_screen.dart';
 import '../helpers/commons.dart';
 import '../helpers/shared_prefs.dart';
 
@@ -54,14 +55,15 @@ Widget reviewRideBottomSheet(
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(RateDriverScreen.routeName);
+                    Navigator.of(context).pushNamed(PassengerScreen.routeName);
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(20)),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text('Rate Your Driver'),
+                        // Text('Rate Your Driver'),
+                        Text("Start new journey"),
                       ]),
                 ),
               ]),

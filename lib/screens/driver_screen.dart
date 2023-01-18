@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../widgets/app_drawer.dart';
@@ -19,6 +21,8 @@ class _DriverScreenState extends State<DriverScreen> {
   late CameraPosition _initialCameraPosition;
   late MapboxMapController controller;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  final Dio _dio = Dio();
+  String url = "$serverUrl/location/create/3/";
   @override
   void initState() {
     //Set initial camera position and current address
@@ -31,14 +35,32 @@ class _DriverScreenState extends State<DriverScreen> {
     this.controller = controller;
   }
 
+  // _sendLocationToServer(currentLocation) {
+  // print(currentLocation.position);
+  // double lat = currentLocation.latitude;
+  // double lon = currentLocation.longitude;
+  // String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+  // Timer.periodic(const Duration(seconds: 1),
+  //     (Timer t) => _dio.post(Uri.parse(url).toString(), data: data));
+  // }
+
   _onStyleLoadedCallBack() async {
     await controller.addSymbol(
       SymbolOptions(
         geometry: currentLocation,
         iconSize: 1.5,
+        draggable: true,
         iconImage: "assets/images/marker.png",
       ),
     );
+    controller.onSymbolTapped.add((Symbol symbol) {
+      symbol.options.geometry!;
+      double lat = symbol.options.geometry!.latitude;
+      double lon = symbol.options.geometry!.longitude;
+      String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+      // print(data);
+      _dio.post(Uri.parse(url).toString(), data: data);
+    });
   }
 
   Widget buildDriverScreenBottom() {
@@ -79,12 +101,21 @@ class _DriverScreenState extends State<DriverScreen> {
       body: Stack(
         children: [
           MapboxMap(
+            dragEnabled: true,
             initialCameraPosition: _initialCameraPosition,
             accessToken: MAPBOX_ACCESS_TOKEN,
-            compassEnabled: true,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
+            myLocationRenderMode: MyLocationRenderMode.GPS,
+            onUserLocationUpdated: (location) {
+              double lat = currentLocation.latitude;
+              double lon = currentLocation.longitude;
+              String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+              print(data);
+              _dio.post(Uri.parse(url).toString(), data: data);
+            },
+            myLocationEnabled: true,
             onMapCreated: _onMapCreated,
-            onStyleLoadedCallback: _onStyleLoadedCallBack,
+            // onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
           hamburgerMenu(scaffoldKey),
           Positioned(

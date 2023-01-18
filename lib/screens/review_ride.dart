@@ -1,5 +1,8 @@
 //access token is required
 
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +38,9 @@ class _ReviewRideState extends State<ReviewRide> {
   late String dropOffTime;
   late Map geometry;
 
+  final Dio _dio = Dio();
+  String url = "$serverUrl/location/create/2/";
+
   @override
   void initState() {
     // initialise distance, dropOffTime, geometry
@@ -64,6 +70,8 @@ class _ReviewRideState extends State<ReviewRide> {
   }
 
   _onStyleLoadedCallback() async {
+    // Timer.periodic(const Duration(seconds: 1),
+    //     (Timer t) => _dio.post(Uri.parse(url).toString(), data: data));
     for (CameraPosition coordinates in busStopLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
@@ -72,6 +80,7 @@ class _ReviewRideState extends State<ReviewRide> {
           iconImage: "assets/images/bus-stop.png",
         ),
       );
+      // print(coordinates.target);
     }
     for (CameraPosition coordinates in driverLocationCoordinates) {
       await controller.addSymbol(

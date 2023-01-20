@@ -106,16 +106,16 @@ class _DriverScreenState extends State<DriverScreen> {
             accessToken: MAPBOX_ACCESS_TOKEN,
             myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
             myLocationRenderMode: MyLocationRenderMode.GPS,
-            onUserLocationUpdated: (location) {
-              double lat = currentLocation.latitude;
-              double lon = currentLocation.longitude;
-              String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
-              print(data);
-              _dio.post(Uri.parse(url).toString(), data: data);
-            },
-            myLocationEnabled: true,
+            // onUserLocationUpdated: (location) {
+            //   double lat = currentLocation.latitude;
+            //   double lon = currentLocation.longitude;
+            //   String data = "{\"lon\":\"$lon\",\"lat\":\"$lat\"}";
+            //   print(data);
+            //   _dio.post(Uri.parse(url).toString(), data: data);
+            // },
+            // myLocationEnabled: true,
             onMapCreated: _onMapCreated,
-            // onStyleLoadedCallback: _onStyleLoadedCallBack,
+            onStyleLoadedCallback: _onStyleLoadedCallBack,
           ),
           hamburgerMenu(scaffoldKey),
           Positioned(

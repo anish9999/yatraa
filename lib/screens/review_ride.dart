@@ -70,8 +70,6 @@ class _ReviewRideState extends State<ReviewRide> {
   }
 
   _onStyleLoadedCallback() async {
-    // Timer.periodic(const Duration(seconds: 1),
-    //     (Timer t) => _dio.post(Uri.parse(url).toString(), data: data));
     for (CameraPosition coordinates in busStopLocationCoordinates) {
       await controller.addSymbol(
         SymbolOptions(
@@ -80,9 +78,10 @@ class _ReviewRideState extends State<ReviewRide> {
           iconImage: "assets/images/bus-stop.png",
         ),
       );
-      // print(coordinates.target);
     }
+
     for (CameraPosition coordinates in driverLocationCoordinates) {
+      print(coordinates.target);
       await controller.addSymbol(
         SymbolOptions(
           geometry: coordinates.target,
@@ -91,13 +90,7 @@ class _ReviewRideState extends State<ReviewRide> {
         ),
       );
     }
-
-    // controller.onSymbolTapped.add(_onSymbolTapped);
   }
-
-  // void _onSymbolTapped(Symbol symbol) {
-  //   print("$symbol tapped");
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +105,6 @@ class _ReviewRideState extends State<ReviewRide> {
         zoom: 15,
       ),
     );
-
     final driverLocation = Provider.of<DriverLocation>(context).locations;
     driverLocationCoordinates = List<CameraPosition>.generate(
       driverLocation.length,
@@ -122,7 +114,6 @@ class _ReviewRideState extends State<ReviewRide> {
         zoom: 15,
       ),
     );
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

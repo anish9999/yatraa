@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +26,13 @@ Widget reviewRideFaButton(BuildContext context) {
         // ignore: use_build_context_synchronously
         Provider.of<DriverLocation>(context, listen: false).addLocation();
         // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) =>
-                    ReviewRide(modifiedResponse: modifiedResponse)));
+        Timer(const Duration(seconds: 5), () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) =>
+                      ReviewRide(modifiedResponse: modifiedResponse)));
+        });
       },
       label: const Text('Review Ride'));
 }

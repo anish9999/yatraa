@@ -1,8 +1,8 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:mapbox_gl/mapbox_gl.dart';
 import '../main.dart';
 
 class DriverLocation with ChangeNotifier {
@@ -35,7 +35,7 @@ class DriverLocation with ChangeNotifier {
 
   void addLocation() async {
     var response = await Dio().get('$serverUrl/location/3/live/');
-    print(response);
+    // print(response);
     var parsedResponse = {
       // "id": response.data['user'].toString(),
       "latitude": response.data[0]['lat'],
@@ -43,12 +43,20 @@ class DriverLocation with ChangeNotifier {
     };
     print(parsedResponse);
     _locations.add(parsedResponse);
+    Timer.periodic(
+      const Duration(seconds: 5),
+      (Timer t) async {
+        var response = await Dio().get('$serverUrl/location/3/live/');
+        // print(response);
+        updateLocation(response.data[0]['lat'], response.data[0]['lon']);
+      },
+    );
     notifyListeners();
   }
 
-  // void updateLocation(LatLng lon, LatLng lat) {
-  //   _locations.first['latitude'] = lat;
-  //   _locations.first['longitude'] = lat;
-  //   notifyListeners();
-  // }
+  void updateLocation(double lon, double lat) {
+    _locations[0]['latitude'] = lat;
+    _locations[0]['longitude'] = lat;
+    notifyListeners();
+  }
 }
